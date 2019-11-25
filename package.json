@@ -1,0 +1,53 @@
+{
+  "name": "ReactExpressPostgresTemplate",
+  "version": "1.0.0",
+  "description": "Template for React, Express, Postgres projects",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server/index.js",
+    "start": "node server/index.js",
+    "prestart": "npm run build",
+    "build": "NODE_ENV=production webpack",
+    "dev": "NODE_ENV=development nodemon server/index.js & webpack-dev-server --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexchao26/ReactExpressPostgresTemplate.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexchao26/ReactExpressPostgresTemplate/issues"
+  },
+  "homepage": "https://github.com/alexchao26/ReactExpressPostgresTemplate#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "faker": "^4.1.0",
+    "pg": "^7.12.1",
+    "pg-hstore": "^2.3.3",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
+    "webpack": "^4.41.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.3",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-react": "^7.6.3",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.2.0",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "mini-css-extract-plugin": "^0.8.0",
+    "nodemon": "^1.19.3",
+    "style-loader": "^1.0.0",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.8.2"
+  }
+}
