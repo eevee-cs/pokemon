@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import OverWorld from './OverWorldComponents/OverWorld';
 import BattleWorld from './BattleWorldComponents/BattleWorld';
+import BattleFrame from './BattleWorldComponents/BattleFrame';
 
 const App = () => {
   // world is 0, battle is 1
@@ -29,7 +30,7 @@ const App = () => {
         )
       }
       { !worldOrBattle && (
-        <BattleWorld
+        <BattleFrame
           canvasRef={canvasRef}
           toggleToWorld={() => setWorldOrBattle(1)}
         />
