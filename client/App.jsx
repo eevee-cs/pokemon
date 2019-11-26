@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import OverWorld from './OverWorldComponents/OverWorld';
 import BattleWorld from './BattleWorldComponents/BattleWorld';
 
@@ -9,7 +9,10 @@ const App = () => {
   const [worldOrBattle, setWorldOrBattle] = useState(1);
 
   // canvasRef to be passed as a prop to provide access to the canvas to children components
-  const canvasRef = React.useRef(null);
+  // the useRef hook has an HTML element on it's current property, so when a variable is set to
+  // canvasRef.current, methods on it are LITERALLY html element methods (i.e. canvas html
+  // element methods)
+  const canvasRef = useRef(null);
 
   // render
   return (
@@ -19,21 +22,20 @@ const App = () => {
         width={600}
         height={600}
       />
-
       {
-        worldOrBattle && (
+        worldOrBattle ? (
           <OverWorld
             canvasRef={canvasRef}
             toggleToBattle={() => setWorldOrBattle(0)}
           />
-        )
+        ) : '' // or render empty string
       }
-      { !worldOrBattle && (
+      { !worldOrBattle ? (
         <BattleWorld
           canvasRef={canvasRef}
           toggleToWorld={() => setWorldOrBattle(1)}
         />
-      )}
+      ) : ''}
     </>
   );
 };
