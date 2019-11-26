@@ -1,0 +1,2 @@
+export const OPPONENT_DAMAGE = 'OPPONENT DAMAGE';
+export const PLAYER_DAMAGE = 'PLAYER DAMAGE';
