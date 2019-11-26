@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
 import pikachuSprite from '../assets/images/pikachu-front.png';
+import seadraSprite from '../assets/images/seadra-front.png';
 import eeveeSprite from '../assets/images/eevee-sprite.png';
+import charizardSprite from '../assets/images/charizard-front.png';
+import gengarSprite from '../assets/images/gengar-front.png';
+import hitmonleeSprite from '../assets/images/hitmonlee-front.png';
+import ivysaurSprite from '../assets/images/ivysaur-front.png';
+import jigglypuffSprite from '../assets/images/jigglypuff-front.png';
+import mewtwoSprite from '../assets/images/mewtwo-front.png';
 import { connect } from 'react-redux';
-import { damageOnOpponent, damageOnPlayer } from '../actions/pokemonActions';
+import { damageOnOpponent, damageOnPlayer, drainOnOpponent } from '../actions/pokemonActions';
+const pokePics = [seadraSprite, pikachuSprite, charizardSprite, gengarSprite, hitmonleeSprite, ivysaurSprite, jigglypuffSprite, mewtwoSprite];
 
 class BattleFrame extends Component {
   constructor(props) {
@@ -10,10 +18,18 @@ class BattleFrame extends Component {
   }
 
   handleFightAction = () => {
-    const { damageOnOpponent, damageOnPlayer, opponent } = this.props;
+    const { damageOnOpponent, damageOnPlayer, opponent, opponentWeakArm } = this.props;
     damageOnOpponent(25);
     setTimeout(() => {
-      if (opponent.hp - 25 > 0) damageOnPlayer(10)
+      if (opponent.hp - 25 > 0) damageOnPlayer(2 > 50-opponentWeakArm ? 2 : 50-opponentWeakArm)
+    }, 400);
+  }
+
+  handleDrainAction = () => {
+    const { drainOnOpponent, damageOnPlayer, opponent, opponentWeakArm } = this.props;
+    drainOnOpponent(30);
+    setTimeout(() => {
+      if (opponent.hp - 25 > 0) damageOnPlayer(2 > 50-opponentWeakArm ? 2 : 50-opponentWeakArm)
     }, 400);
   }
 
@@ -56,7 +72,7 @@ class BattleFrame extends Component {
         {/* OPPONENT FRAME BOX */}
         <article className="frame__box frame__box--opponent">
           <section className="frame__info">
-            <h5 className="frame__name">Pikachu</h5>
+            <h5 className="frame__name">{opponent.name}</h5>
             <section className="frame__stats">
               <h5 className="frame__health">HP</h5>
               <div className="frame__health-bar">
@@ -69,7 +85,7 @@ class BattleFrame extends Component {
           </section>
 
           <section className="frame__sprite">
-            <img className="frame__sprite-img" src={pikachuSprite} alt=""/>
+            <img className="frame__sprite-img" src={pokePics[opponent.image]} alt=""/>
           </section>
         </article>
         {/* PLAYER FRAME BOX */}
@@ -104,6 +120,12 @@ class BattleFrame extends Component {
               className="frame__button">RUN</div>
           </section>
         </article>
+        {/* ATTACK TYPES */}
+        <article className="frame_attack-menu">
+          <div>Attacks</div>
+          <div onClick={this.handleFightAction}>TACKLE</div>
+          <div onClick={this.handleDrainAction}>TAIL WAG</div>
+        </article>
       </main>
     )
   }
@@ -113,4 +135,4 @@ const mapStateToProps = (state) => {
   return state;
 };
 
-export default connect(mapStateToProps, { damageOnOpponent, damageOnPlayer })(BattleFrame);
+export default connect(mapStateToProps, { damageOnOpponent, damageOnPlayer, drainOnOpponent })(BattleFrame);
