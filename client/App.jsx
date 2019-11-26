@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import OverWorld from './OverWorldComponents/OverWorld';
 import BattleWorld from './BattleWorldComponents/BattleWorld';
 import BattleFrame from './BattleWorldComponents/BattleFrame';
+import BattleFrameCSS from './BattleWorldComponents/battleframe.css';
+
 
 const App = () => {
   // world is 0, battle is 1
@@ -15,12 +17,6 @@ const App = () => {
   // render
   return (
     <>
-      <canvas
-        ref={canvasRef}
-        width={600}
-        height={600}
-      />
-
       {
         worldOrBattle && (
           <OverWorld

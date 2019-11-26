@@ -17,7 +17,7 @@ class BattleFrame extends Component {
             <section className="frame__stats">
               <h5 className="frame__health">HP</h5>
               <div className="frame__health-bar">
-                <div className="frame__health-bar-inner"></div>
+                <div className="frame__health-bar-inner frame__health-bar-inner--opponent"></div>
               </div>
             </section>
           </section>
@@ -33,7 +33,7 @@ class BattleFrame extends Component {
             <section className="frame__stats">
               <h5 className="frame__health">HP</h5>
               <div className="frame__health-bar">
-                <div className="frame__health-bar-inner"></div>
+                <div className="frame__health-bar-inner frame__health-bar-inner--player"></div>
               </div>
             </section>
           </section>
@@ -44,7 +44,7 @@ class BattleFrame extends Component {
         </article>
 
         <article className="frame__battle-menu">
-          
+
         </article>
       </main>
     )

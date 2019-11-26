@@ -1,0 +1,17 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.frame__health-bar {
+  border: 1px solid black;
+  width: 100px;
+  height: 10px;
+}
+
+.frame__health-bar-inner {
+  background-color: green;
+  width: 99px;
+  height: 9px;
+}
