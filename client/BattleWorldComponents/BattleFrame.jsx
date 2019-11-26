@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import BattleMenu from './BattleMenu';
+import CharacterBox from './CharacterBox';
 import pikachuSprite from '../assets/images/pikachu-front.png';
 import eeveeSprite from '../assets/images/eevee-sprite.png';
 import { connect } from 'react-redux';
 import { damageOnOpponent, damageOnPlayer } from '../actions/pokemonActions';
+import BattleFrameCSS from './battleframe.css';
 
 class BattleFrame extends Component {
   constructor(props) {
@@ -54,56 +57,24 @@ class BattleFrame extends Component {
     return (
       <main className="frame">
         {/* OPPONENT FRAME BOX */}
-        <article className="frame__box frame__box--opponent">
-          <section className="frame__info">
-            <h5 className="frame__name">Pikachu</h5>
-            <section className="frame__stats">
-              <h5 className="frame__health">HP</h5>
-              <div className="frame__health-bar">
-                <div 
-                  className="frame__health-bar-inner frame__health-bar-inner--opponent"
-                  style={{width: this.getHealthPixels(opponent)}}
-                  ></div>
-              </div>
-            </section>
-          </section>
-
-          <section className="frame__sprite">
-            <img className="frame__sprite-img" src={pikachuSprite} alt=""/>
-          </section>
-        </article>
+        <CharacterBox
+          pokemon={opponent}
+          sprite={pikachuSprite}
+          getHealthPixels={this.getHealthPixels}
+          isOpponent={true}
+        />
         {/* PLAYER FRAME BOX */}
-        <article className="frame__box frame__box--player">
-          <section className="frame__info">
-            <h5 className="frame__name">Eevee</h5>
-            <section className="frame__stats">
-              <h5 className="frame__health">HP</h5>
-              <div className="frame__health-bar">
-                <div 
-                  className="frame__health-bar-inner frame__health-bar-inner--player"
-                  style={{width: this.getHealthPixels(player)}}
-                  ></div>
-              </div>
-            </section>
-          </section>
-
-          <section className="frame__sprite">
-            <img className="frame__sprite-img" src={eeveeSprite} alt=""/>
-          </section>
-        </article>
+        <CharacterBox
+          pokemon={player}
+          sprite={eeveeSprite}
+          getHealthPixels={this.getHealthPixels}
+          isOpponent={false}
+        />
         {/* BATTLE MENU */}
-        <article className="frame__battle-menu">
-          <section className="frame__options">
-            <div
-              onClick={this.handleFightAction}
-              className="frame__button">FIGHT</div>
-            <div className="frame__button">PKMN</div>
-            <div className="frame__button">ITEM</div>
-            <div
-              onClick={toggleToWorld}
-              className="frame__button">RUN</div>
-          </section>
-        </article>
+        <BattleMenu 
+          handleFightAction={this.handleFightAction} 
+          toggleToWorld={toggleToWorld}
+        />
       </main>
     )
   }

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import OverWorld from './OverWorldComponents/OverWorld';
 import BattleFrame from './BattleWorldComponents/BattleFrame';
-import BattleFrameCSS from './BattleWorldComponents/battleframe.css';
-
+import app from './app.css';
 
 const App = () => {
   // world is 0, battle is 1
