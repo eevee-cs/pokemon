@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import OverWorld from './OverWorldComponents/OverWorld';
-import BattleWorld from './BattleWorldComponents/BattleWorld';
 import BattleFrame from './BattleWorldComponents/BattleFrame';
 import BattleFrameCSS from './BattleWorldComponents/battleframe.css';
 
@@ -27,7 +26,6 @@ const App = () => {
       }
       { !worldOrBattle && (
         <BattleFrame
-          canvasRef={canvasRef}
           toggleToWorld={() => setWorldOrBattle(1)}
         />
       )}
