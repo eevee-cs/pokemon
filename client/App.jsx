@@ -8,7 +8,7 @@ const App = () => {
   // world is 0, battle is 1
   // This hook creates worldOrBattle state that toggles between the two worlds
   // the toggleToBattle/World prop method will trigger the toggle
-  const [worldOrBattle, setWorldOrBattle] = useState(0);
+  const [worldOrBattle, setWorldOrBattle] = useState(1);
 
 
   // render
@@ -21,7 +21,7 @@ const App = () => {
           />
         ) : '' // or render empty string
       }
-      { !worldOrBattle && (
+      { !worldOrBattle ? (
         <BattleFrame
           toggleToWorld={() => setWorldOrBattle(1)}
         />
