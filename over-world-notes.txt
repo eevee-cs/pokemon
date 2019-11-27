@@ -1,0 +1,28 @@
+start game
+
+set grid? 600x600 w/ squares 25x25
+
+where grass is (25%)
+where pavement is (75%)
+
+where player starts
+
+variables: 
+  - counter that increments when walking on grass
+
+functionality: 
+  - taking a step in any direction
+  - trigger battle if counter is > some value
+
+stretch: 
+  - trees than cannot be walked through
+  - teleport through board @ edges
+  - return player to last coordinates after a battle
+  - throttle player movement?
+
+React Structure:
+|--- App
+  |--- BattleWorld
+  |--- OverWorld (state: grassArr)
+    |--- board/background (prop drill: canvasRef)
+    |--- player component (prop drill: toggleToBattle)

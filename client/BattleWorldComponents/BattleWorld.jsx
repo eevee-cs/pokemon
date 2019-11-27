@@ -23,7 +23,7 @@ class BattleWorld extends React.Component {
       context.drawImage(eevee, 50, 500, 100, 100);
     };
     // pikachu
-    const pikachu = this.refs.pikachu;
+    const {pikachu} = this.refs;
     pikachu.onload = () => {
       context.drawImage(pikachu, 500, 50, 100, 100);
     };
@@ -33,8 +33,8 @@ class BattleWorld extends React.Component {
     return (
       <>
         <h1>Battle World</h1>
-        <img ref="image" src={eeveeImg} alt="" style={{display: 'none'}} />
-        <img ref="pikachu" src={pikachuImg} alt="" style={{display: 'none'}} />
+        <img ref="image" src={eeveeImg} alt="" style={{ display: 'none' }} />
+        <img ref="pikachu" src={pikachuImg} alt="" style={{ display: 'none' }} />
         <button type="button" onClick={() => this.props.toggleToWorld()}>im a button</button>
       </>
 
