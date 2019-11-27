@@ -1,3 +1,4 @@
 export const OPPONENT_DAMAGE = 'OPPONENT DAMAGE';
 export const PLAYER_DAMAGE = 'PLAYER DAMAGE';
 export const OPPONENT_DRAIN = 'OPPONENT DRAIN';
+export const SET_RANDOM_POKEMON = 'RANDOM';

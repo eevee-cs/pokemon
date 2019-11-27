@@ -65,11 +65,16 @@ class BattleFrame extends Component {
     if (this.props.player.hp <= 0) {
       this.checkPlayerHealth(prevProps.player.hp - this.props.player.hp)
     }
-
   }
 
   render() {
-    const { opponent, player, toggleToWorld } = this.props;
+    const { 
+      opponent,
+      player,
+      toggleToWorld,
+      pokesArray,
+    } = this.props;
+
     return (
       <main className="frame">
         {/* OPPONENT FRAME BOX */}
@@ -106,4 +111,8 @@ const mapStateToProps = (state) => {
   return state;
 };
 
-export default connect(mapStateToProps, { damageOnOpponent, damageOnPlayer, drainOnOpponent })(BattleFrame);
+export default connect(mapStateToProps, { 
+  damageOnOpponent, 
+  damageOnPlayer, 
+  drainOnOpponent,
+ })(BattleFrame);

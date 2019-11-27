@@ -29,7 +29,7 @@ const initialState = {
 
 const pokemonReducer = (state = initialState, action) => {
   switch (action.type) {
-    case constants.OPPONENT_DAMAGE:
+    case constants.OPPONENT_DAMAGE: {
       // subtracting damage taken from current HP
       const newHP = (state.opponent.hp - action.payload) >= 0 ? state.opponent.hp - action.payload : 0;
 
@@ -41,7 +41,8 @@ const pokemonReducer = (state = initialState, action) => {
         ...state,
         opponent: newOpponent,
       };
-    case constants.PLAYER_DAMAGE:
+    }
+    case constants.PLAYER_DAMAGE: {
       // subtracting damage taken from current HP
       const newPlayerHP = state.player.hp - action.payload;
 
@@ -53,7 +54,8 @@ const pokemonReducer = (state = initialState, action) => {
         ...state,
         player: newPlayer,
       };
-    case constants.OPPONENT_DRAIN:
+    }
+    case constants.OPPONENT_DRAIN: {
       // reducing opponent attack strength
       const newOpponentWeakArm = state.opponentWeakArm + action.payload;
 
@@ -61,12 +63,18 @@ const pokemonReducer = (state = initialState, action) => {
         ...state,
         opponentWeakArm: newOpponentWeakArm,
       };
-    default:
-      const newerOpponent = state.pokesArray[Math.floor(Math.random()*state.pokesArray.length)]
+    }
+    case constants.SET_RANDOM_POKEMON: {
+      // setting a randomized Pokemon as the next encounter
+      const randomPokemon = state.pokesArray[Math.floor(Math.random() * state.pokesArray.length)];
       return {
         ...state,
-        opponent: newerOpponent,
-        };
+        opponent: randomPokemon,
+      };
+    }
+    default: {
+      return state;
+    }
   }
 };
 
