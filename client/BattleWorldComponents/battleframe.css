@@ -1,20 +1,25 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 /* FRAME */
 .frame {
   display: flex;
-  background-color: red;
+  background-color: rgb(249, 224, 248);
   flex-direction: column;
   align-items: center;
+  width: 500px;
+  height: 500px;
 }
 
 .frame__box {
   display: flex;
   background-color: white;
+  width: 100%;
+}
+
+.frame__info {
+  width: 50%;
+}
+
+.frame__sprite {
+  width: 50%;
 }
 
 .frame__box--player {
@@ -47,4 +52,12 @@
 .frame__button {
   /* background-color: aqua; */
   width: 100px;
+}
+
+.frame_attack-menu {
+  outline: 1px solid black;
+}
+
+.frame_fight-info {
+  outline: 1px solid black;
 }
