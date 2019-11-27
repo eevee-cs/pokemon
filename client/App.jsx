@@ -13,10 +13,9 @@ const App = (props) => {
 
   // canvasRef to be passed as a prop to provide access to the canvas to children components
   const canvasRef = React.useRef(null);
-  
+
   // sets a random Pokemon as an opponent to be used inside BattleFrame
-  const { getRandomPokemon } = props;
-  getRandomPokemon();
+  props.getRandomPokemon();
   // render
   return (
     <>

@@ -1,7 +1,7 @@
 /* FRAME */
 .frame {
   display: flex;
-  background-color: red;
+  background-color: rgb(249, 224, 248);
   flex-direction: column;
   align-items: center;
   width: 500px;
@@ -11,6 +11,15 @@
 .frame__box {
   display: flex;
   background-color: white;
+  width: 100%;
+}
+
+.frame__info {
+  width: 50%;
+}
+
+.frame__sprite {
+  width: 50%;
 }
 
 .frame__box--player {

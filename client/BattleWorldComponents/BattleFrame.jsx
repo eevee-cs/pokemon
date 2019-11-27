@@ -72,7 +72,6 @@ class BattleFrame extends Component {
       opponent,
       player,
       toggleToWorld,
-      pokesArray,
     } = this.props;
 
     return (
@@ -97,11 +96,11 @@ class BattleFrame extends Component {
           toggleToWorld={toggleToWorld}
         />
         {/* ATTACK TYPES */}
-        <article className="frame_attack-menu">
+        {/* <article className="frame_attack-menu">
           <div>Attacks</div>
           <div onClick={this.handleFightAction}>TACKLE</div>
           <div onClick={this.handleDrainAction}>TAIL WAG</div>
-        </article>
+        </article> */}
       </main>
     )
   }
@@ -115,4 +114,4 @@ export default connect(mapStateToProps, {
   damageOnOpponent, 
   damageOnPlayer, 
   drainOnOpponent,
- })(BattleFrame);
+})(BattleFrame);

@@ -7,6 +7,7 @@ const BattleMenu = (props) => {
   return (
     <article className="frame__battle-menu">
       <section className="frame__options">
+        {/* Fight Option */}
         <div
           onClick={handleFightAction}
           className="frame__button"
@@ -15,6 +16,7 @@ const BattleMenu = (props) => {
         >
           FIGHT
         </div>
+        {/* Party Option */}
         <div
           className="frame__button"
           role="button"
@@ -22,13 +24,15 @@ const BattleMenu = (props) => {
         >
           PKMN
         </div>
-        <div 
+        {/* Items Option */}
+        <div
           className="frame__button"
           role="button"
           tabIndex={0}
         >
           ITEM
         </div>
+        {/* Run Option */}
         <div
           onClick={toggleToWorld}
           className="frame__button"
