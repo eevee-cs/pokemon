@@ -3,11 +3,11 @@ import React from 'react';
 
 class BattleWorld extends React.Component {
   componentDidMount() {
-    const { canvasRef } = this.props;
-    const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
-    context.fillStyle = '#3a3acf';
-    context.fillRect(0, 0, canvas.width, canvas.height);
+    // const { canvasRef } = this.props;
+    // const canvas = canvasRef.current;
+    // const context = canvas.getContext('2d');
+    // context.fillStyle = '#3a3acf';
+    // context.fillRect(0, 0, canvas.width, canvas.height);
   }
 
   render() {

@@ -8,31 +8,19 @@ const App = () => {
   // the toggleToBattle/World prop method will trigger the toggle
   const [worldOrBattle, setWorldOrBattle] = useState(1);
 
-  // canvasRef to be passed as a prop to provide access to the canvas to children components
-  // the useRef hook has an HTML element on it's current property, so when a variable is set to
-  // canvasRef.current, methods on it are LITERALLY html element methods (i.e. canvas html
-  // element methods)
-  const canvasRef = useRef(null);
 
   // render
   return (
     <>
-      <canvas
-        ref={canvasRef}
-        width={600}
-        height={600}
-      />
       {
         worldOrBattle ? (
           <OverWorld
-            canvasRef={canvasRef}
             toggleToBattle={() => setWorldOrBattle(0)}
           />
         ) : '' // or render empty string
       }
       { !worldOrBattle ? (
         <BattleWorld
-          canvasRef={canvasRef}
           toggleToWorld={() => setWorldOrBattle(1)}
         />
       ) : ''}
