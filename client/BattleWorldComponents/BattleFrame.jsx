@@ -107,13 +107,33 @@ class BattleFrame extends Component {
     }
   }
 
+  handleItem = () => {
+    console.log('you touched an item!')
+  }
+
+  itemList = () => {
+    const {
+      items,
+    } = this.props;
+    let itemBox = [];
+    let counter = 0;
+    for (let item of items){
+    counter++;
+    console.log(item.name);
+    itemBox.push(<div onClick={this.handleItem} key={"l"+counter}>{item.name+' x'+item.count}</div>)
+    };
+    return itemBox;
+  }
+  
   render() {
     const { 
       opponent,
       player,
       toggleToWorld,
-      fightInfo
+      fightInfo,
+      items,
     } = this.props;
+
 
     return (
       <main className="frame">
@@ -137,11 +157,18 @@ class BattleFrame extends Component {
           toggleToWorld={toggleToWorld}
         />
         {/* ATTACK TYPES */}
+        <div>
         <article className="frame_attack-menu">
           <div>Attacks</div>
           <div onClick={this.handleFightAction}>TACKLE</div>
           <div onClick={this.handleDrainAction}>GROWL</div>
         </article>
+        {/* ITEMS */}
+        <article className="frame_item-menu">
+          <div>Items</div>
+          <div>{this.itemList()}</div>
+        </article>
+        </div>
         {/* FIGHT INFO */}
         <article className="frame_fight-info">
           <div>...</div>

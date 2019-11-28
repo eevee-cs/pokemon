@@ -115,6 +115,18 @@ const initialState = {
   opponentWeakArm: 0,
   selfWeakArm: 0,
   fightInfo: 'Getting ready!',
+  items: [
+    {
+      name: 'Potion',
+      count: 1,
+      recover: 1,
+    },
+    {
+      name: 'Pokeball',
+      count: 1,
+      recover: -1,
+    },
+  ],
   opponent: {
     maxHP: 80,
     hp: 80,
