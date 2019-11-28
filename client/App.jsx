@@ -17,13 +17,12 @@ const App = (props) => {
   // render
   return (
     <>
-      {
-        worldOrBattle ? (
+      { worldOrBattle
+          && (
           <OverWorld
             toggleToBattle={() => setWorldOrBattle(0)}
           />
-        ) : '' // or render empty string
-      }
+          )}
       { !worldOrBattle ? (
         <BattleFrame
           toggleToWorld={() => setWorldOrBattle(1)}
@@ -33,3 +32,23 @@ const App = (props) => {
   );
 };
 export default connect(null, { getRandomPokemon })(App);
+
+
+// return
+
+// return (
+//   <>
+//     {
+//       worldOrBattle ? (
+//         <OverWorld
+//           toggleToBattle={() => setWorldOrBattle(0)}
+//         />
+//       ) : '' // or render empty string
+//     }
+//     { !worldOrBattle ? (
+//       <BattleFrame
+//         toggleToWorld={() => setWorldOrBattle(1)}
+//       />
+//     ) : ''}
+//   </>
+// );
