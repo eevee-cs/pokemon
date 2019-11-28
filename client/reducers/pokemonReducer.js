@@ -175,9 +175,15 @@ const pokemonReducer = (state = initialState, action) => {
     case constants.SET_RANDOM_POKEMON: {
       // setting a randomized Pokemon as the next encounter
       const randomPokemon = state.pokesArray[Math.floor(Math.random() * state.pokesArray.length)];
+      const newOpponentWeakArm = 0;
+      const newSelfWeakArm = 0;
+      const newFightInfo = 'Getting ready!';
       return {
         ...state,
         opponent: randomPokemon,
+        opponentWeakArm: newOpponentWeakArm,
+        selfWeakArm: newSelfWeakArm,
+        fightInfo: newFightInfo,
       };
     }
     case constants.ATTACK_INFO: {

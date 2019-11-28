@@ -6,6 +6,7 @@
 
 import React, { useState, useEffect, useReducer } from 'react';
 import './overworld.css';
+import playerSprite from '../assets/images/player-down.png';
 
 const Player = ({ grassArr, toggleToBattle }) => {
   const [leftOffset, setLeftOffset] = useState(0);
@@ -88,8 +89,10 @@ const Player = ({ grassArr, toggleToBattle }) => {
 
   // render player with class "player", style is to set the CSS positioning inline
   return (
-    <div
+    <img
+      src={playerSprite}
       className="player"
+      alt="player"
       style={{ left: `${playerLeft * 25 + leftOffset}px`, top: `${playerTop * 25 + topOffset}px` }}
     />
   );
