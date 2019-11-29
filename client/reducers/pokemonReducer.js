@@ -225,14 +225,24 @@ const pokemonReducer = (state = initialState, action) => {
         count: newInnerCount,
       };
 
+      const mod = action.payload.recover > 0 ? action.payload.recover * 20 : 0;
+
+      const newPlayerHP = state.player.hp + mod;
+
       const newItems = {
         ...state.items,
         [action.payload.name]: newItem,
       };
 
+      const newPlayer = {
+        ...state.player,
+        hp: newPlayerHP,
+      };
+
       return {
         ...state,
         items: newItems,
+        player: newPlayer,
       };
     }
     default: {
