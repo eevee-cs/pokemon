@@ -123,7 +123,7 @@ const initialState = {
     },
     Pokeball: {
       name: 'Pokeball',
-      count: 1,
+      count: 2,
       recover: -1,
     },
   },
@@ -145,8 +145,18 @@ const initialState = {
     },
     name: 'Eevee',
   },
+  activePoke: 0,
   yourPokes: [
-
+    {
+      maxHP: 256,
+      hp: 256,
+      attacks: {
+        Tackle: 7,
+        Growl: -1,
+      },
+      name: 'Eevee',
+      image: 'in your pokes',
+    },
   ],
 };
 
@@ -167,15 +177,24 @@ const pokemonReducer = (state = initialState, action) => {
     }
     case constants.PLAYER_DAMAGE: {
       // subtracting damage taken from current HP
-      const newPlayerHP = (state.player.hp - action.payload) >= 0 ? state.player.hp - action.payload : 0;
+      const newPlayerHP = (state.yourPokes[state.activePoke].hp - action.payload) >= 0 ? state.yourPokes[state.activePoke].hp - action.payload : 0;
 
-      const newPlayer = {
-        ...state.player,
+      const newYourPoke = {
+        ...state.yourPokes[state.activePoke],
         hp: newPlayerHP,
-      }
+      };
+
+      const newYourPokes = state.yourPokes;
+
+      //console.log('what were we trying to update: ' + newYourPokes[0].hp);
+
+      newYourPokes[state.activePoke] = newYourPoke;
+
+      //console.log('they are trying to do damage:' + newYourPokes[0].hp);
+
       return {
         ...state,
-        player: newPlayer,
+        yourPokes: newYourPokes,
       };
     }
     case constants.OPPONENT_DRAIN: {
@@ -230,22 +249,26 @@ const pokemonReducer = (state = initialState, action) => {
 
       const mod = action.payload.recover > 0 ? action.payload.recover * 20 : 0;
 
-      const newPlayerHP = Math.min(state.player.hp + mod, state.player.maxHP);
+      const newPlayerHP = Math.min(state.yourPokes[state.activePoke].hp + mod, state.yourPokes[state.activePoke].maxHP);
 
       const newItems = {
         ...state.items,
         [action.payload.name]: newItem,
       };
 
-      const newPlayer = {
-        ...state.player,
+      const newYourPoke = {
+        ...state.yourPokes[state.activePoke],
         hp: newPlayerHP,
       };
+
+      const newYourPokes = state.yourPokes;
+
+      newYourPokes[state.activePoke] = newYourPoke;
 
       return {
         ...state,
         items: newItems,
-        player: newPlayer,
+        yourPokes: newYourPokes,
       };
     }
     case constants.THROW_BALL: {
@@ -257,15 +280,18 @@ const pokemonReducer = (state = initialState, action) => {
         count: newInnerCount,
       };
 
+      const newPokes = state.yourPokes.concat(action.payload.opponent);
+
       const newItems = {
         ...state.items,
         [action.payload.chosen.name]: newItem,
       };
 
-      console.log('our pokeball', action.payload)
+      console.log('myPokes ', state.yourPokes);
       return {
         ...state,
         items: newItems,
+        yourPokes: newPokes,
       };
     }
     default: {

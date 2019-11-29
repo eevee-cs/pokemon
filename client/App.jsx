@@ -13,7 +13,7 @@ const App = (props) => {
 
 
   // sets a random Pokemon as an opponent to be used inside BattleFrame
-  props.getRandomPokemon();
+  if (worldOrBattle) props.getRandomPokemon();
   // render
   return (
     <>

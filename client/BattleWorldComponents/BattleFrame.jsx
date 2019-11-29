@@ -27,7 +27,9 @@ class BattleFrame extends Component {
   handleFightAction = () => {
     const {effectOnPlayer, infoReset, damageOnOpponent, damageOnPlayer, opponent, selfWeakArm, opponentWeakArm } = this.props;
     //damages opponent, less a status effect that may be the result of an opponent attack.
+
     damageOnOpponent(25+selfWeakArm);
+
     // Then you are hit.
     this.opponentPunchback();
   }
@@ -51,7 +53,7 @@ class BattleFrame extends Component {
     // Isolate damage of attack.
     let damage = move[1];
     console.log(move);
-    setTimeout(() => {
+    //setTimeout(() => {
       // Declare name of opponent's attack.
       if (opponent.hp - 25 > 0) {
         infoReset(opponent.name+' just used '+name+'!')
@@ -62,7 +64,7 @@ class BattleFrame extends Component {
       }
       // Opponent attacks for damage, there is also a catch here so the damage cannot be less than 2.
       else if (opponent.hp - 25 > 0) {damageOnPlayer(2 > damage-opponentWeakArm ? 2 : damage-opponentWeakArm)}
-    }, 400);
+    //}, 300);
   }
 
   checkOpponentHealth = (damage, id) => {
@@ -76,17 +78,19 @@ class BattleFrame extends Component {
   }
 
   checkPlayerHealth = (damage) => {
-    const { player } = this.props;
+    const { player, yourPokes, activePoke } = this.props;
     // You get a log if you have lost to an opponent.
-    if (player.hp - damage <= 0) {
+    if (yourPokes[activePoke].hp - damage <= 0) {
       alert('You Lose');
     }
   }
 
   getHealthPixels = (currentPkmn) => {
     const { hp, maxHP } = currentPkmn;
+    console.log("currentPkmn: ", currentPkmn)
     // Normalize health bar to fraction of maxHP.
     const healthPixels = Math.floor(99 * hp / maxHP);
+    console.log('const health pixels', healthPixels)
     return healthPixels;
   }
 
@@ -95,9 +99,9 @@ class BattleFrame extends Component {
       // Helps check if opponent fainted.
       this.checkOpponentHealth(prevProps.opponent.hp - this.props.opponent.hp)
     }
-    if (this.props.player.hp <= 0) {
+    if (this.props.yourPokes[this.props.activePoke].hp <= 0) {
       // Helps check if you fainted.
-      this.checkPlayerHealth(prevProps.player.hp - this.props.player.hp)
+      this.checkPlayerHealth(prevProps.yourPokes[this.props.activePoke].hp - this.props.yourPokes[this.props.activePoke].hp)
     }
   }
 
@@ -141,6 +145,8 @@ class BattleFrame extends Component {
       toggleToWorld,
       fightInfo,
       items,
+      yourPokes,
+      activePoke,
     } = this.props;
 
 
@@ -155,7 +161,7 @@ class BattleFrame extends Component {
         />
         {/* PLAYER FRAME BOX */}
         <CharacterBox
-          pokemon={player}
+          pokemon={yourPokes[activePoke]}
           sprite={eeveeSprite}
           getHealthPixels={this.getHealthPixels}
           isOpponent={false}
