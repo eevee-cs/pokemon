@@ -155,7 +155,7 @@ const initialState = {
         Growl: -1,
       },
       name: 'Eevee',
-      image: 'in your pokes',
+      image: 11,
     },
   ],
 };
@@ -218,6 +218,14 @@ const pokemonReducer = (state = initialState, action) => {
         opponentWeakArm: newOpponentWeakArm,
         selfWeakArm: newSelfWeakArm,
         fightInfo: newFightInfo,
+      };
+    }
+    case constants.SET_RANDOM_SELF: {
+      const newActivePoke = Math.floor(Math.random() * state.yourPokes.length);
+
+      return {
+        ...state,
+        activePoke: newActivePoke,
       };
     }
     case constants.ATTACK_INFO: {

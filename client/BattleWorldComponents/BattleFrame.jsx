@@ -16,7 +16,7 @@ import snorlaxSprite from '../assets/images/snorlax-front.png';
 import { connect } from 'react-redux';
 import { itemUse, throwBall, infoReset, damageOnOpponent, effectOnPlayer, damageOnPlayer, drainOnOpponent } from '../actions/pokemonActions';
 // array to alias images to indexes so they can be referenced in store
-const pokePics = [seadraSprite, pikachuSprite, charizardSprite, gengarSprite, hitmonleeSprite, ivysaurSprite, jigglypuffSprite, mewtwoSprite, onixSprite, pidgeotSprite, snorlaxSprite];
+const pokePics = [seadraSprite, pikachuSprite, charizardSprite, gengarSprite, hitmonleeSprite, ivysaurSprite, jigglypuffSprite, mewtwoSprite, onixSprite, pidgeotSprite, snorlaxSprite, eeveeSprite];
 import BattleFrameCSS from './battleframe.css';
 
 class BattleFrame extends Component {
@@ -162,7 +162,7 @@ class BattleFrame extends Component {
         {/* PLAYER FRAME BOX */}
         <CharacterBox
           pokemon={yourPokes[activePoke]}
-          sprite={eeveeSprite}
+          sprite={pokePics[yourPokes[activePoke].image]}
           getHealthPixels={this.getHealthPixels}
           isOpponent={false}
         />
