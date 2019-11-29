@@ -5,3 +5,4 @@ export const SET_RANDOM_POKEMON = 'RANDOM';
 export const ATTACK_INFO = 'ATTACK INFO';
 export const EFFECT_ATTACK = 'EFFECT ATTACK';
 export const ITEM_USE = 'ITEM USE';
+export const THROW_BALL = 'THROW BALL';

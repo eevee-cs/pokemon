@@ -14,7 +14,7 @@ import onixSprite from '../assets/images/onix-front.png';
 import pidgeotSprite from '../assets/images/pidgeot-front.png';
 import snorlaxSprite from '../assets/images/snorlax-front.png';
 import { connect } from 'react-redux';
-import { itemUse, infoReset, damageOnOpponent, effectOnPlayer, damageOnPlayer, drainOnOpponent } from '../actions/pokemonActions';
+import { itemUse, throwBall, infoReset, damageOnOpponent, effectOnPlayer, damageOnPlayer, drainOnOpponent } from '../actions/pokemonActions';
 // array to alias images to indexes so they can be referenced in store
 const pokePics = [seadraSprite, pikachuSprite, charizardSprite, gengarSprite, hitmonleeSprite, ivysaurSprite, jigglypuffSprite, mewtwoSprite, onixSprite, pidgeotSprite, snorlaxSprite];
 import BattleFrameCSS from './battleframe.css';
@@ -103,9 +103,10 @@ class BattleFrame extends Component {
 
   handleItem = (chosen) => {
     console.log('you touched an item!')
-    const {items, player, itemUse,} = this.props;
+    const {items, player, itemUse, throwBall, opponent} = this.props;
 
-    itemUse(chosen)
+    if (chosen.recover >= 1) itemUse(chosen);
+    if (chosen.recover === -1) throwBall({chosen, opponent});
 
     // if (chosen.recover >= 1){
       //console.log('hp',player.hp)
@@ -193,6 +194,7 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, { 
   itemUse,
+  throwBall,
   infoReset,
   damageOnOpponent,
   effectOnPlayer,

@@ -8,3 +8,4 @@ export const getRandomPokemon = () => ({ type: constants.SET_RANDOM_POKEMON });
 export const infoReset = (info) => ({ type: constants.ATTACK_INFO, payload: info });
 export const effectOnPlayer = (effect) => ({ type: constants.EFFECT_ATTACK, payload: effect });
 export const itemUse = (details) => ({ type: constants.ITEM_USE, payload: details });
+export const throwBall = (details) => ({ type: constants.THROW_BALL, payload: details });

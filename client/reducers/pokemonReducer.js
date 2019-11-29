@@ -145,6 +145,9 @@ const initialState = {
     },
     name: 'Eevee',
   },
+  yourPokes: [
+
+  ],
 };
 
 const pokemonReducer = (state = initialState, action) => {
@@ -227,7 +230,7 @@ const pokemonReducer = (state = initialState, action) => {
 
       const mod = action.payload.recover > 0 ? action.payload.recover * 20 : 0;
 
-      const newPlayerHP = state.player.hp + mod;
+      const newPlayerHP = Math.min(state.player.hp + mod, state.player.maxHP);
 
       const newItems = {
         ...state.items,
@@ -243,6 +246,26 @@ const pokemonReducer = (state = initialState, action) => {
         ...state,
         items: newItems,
         player: newPlayer,
+      };
+    }
+    case constants.THROW_BALL: {
+      console.log('Catch that pokemon!');
+      const newInnerCount = state.items[action.payload.chosen.name].count-1;
+
+      const newItem = {
+        ...state.items[action.payload.chosen.name],
+        count: newInnerCount,
+      };
+
+      const newItems = {
+        ...state.items,
+        [action.payload.chosen.name]: newItem,
+      };
+
+      console.log('our pokeball', action.payload)
+      return {
+        ...state,
+        items: newItems,
       };
     }
     default: {
