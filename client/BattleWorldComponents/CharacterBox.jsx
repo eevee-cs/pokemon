@@ -1,14 +1,17 @@
 import React from 'react';
+import PlayerHealth from './PlayerHealth';
 
 const classNames = {
   // used to control the CSS positioning & health bar for an opponent
   opponentFrame: 'frame__box frame__box--opponent',
   opponentHealth: 'frame__health-bar-inner frame__health-bar-inner--opponent',
   opponentStats: 'frame__stats frame__stats--opponent',
+  opponentSprite: 'frame__sprite frame__sprite--opponent',
   // used to control the CSS positioning & health bar for the player
   playerFrame: 'frame__box frame__box--player',
   playerHealth: 'frame__health-bar-inner frame__health-bar-inner--player',
   playerStats: 'frame__stats frame__stats--player',
+  playerSprite: 'frame__sprite frame__sprite--player',
 };
 
 const CharacterBox = (props) => {
@@ -27,6 +30,7 @@ const CharacterBox = (props) => {
           <span className="frame__level--size">:L</span>
           5
         </h5>
+        {/* HP Bar */}
         <section className={isOpponent ? classNames.opponentStats : classNames.playerStats}>
           <h5 className="frame__health">HP:</h5>
           <div className="frame__health-bar">
@@ -36,9 +40,11 @@ const CharacterBox = (props) => {
             />
           </div>
         </section>
+        {/* Players HP Display */}
+        { isOpponent ? null : <PlayerHealth /> }
       </section>
 
-      <section className="frame__sprite">
+      <section className={isOpponent ? classNames.opponentSprite : classNames.playerSprite}>
         <img className="frame__sprite-img" src={sprite} alt="" />
       </section>
     </article>

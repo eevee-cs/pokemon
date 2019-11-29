@@ -12,8 +12,11 @@
   font-family: Pokemon-Font;
   font-size: 28px;
   text-transform: uppercase;
-  width: 500px;
+  border-radius: 5px;
+  /* width: 700px;
+  height: 630px; */
   height: 500px;
+  width: 500px;
 }
 
 .frame__box {
@@ -39,7 +42,6 @@
 .frame__stats {
   display: flex;
   align-items: center;
-  border-bottom: 6px solid black;
   font-size: 16px;
   height: 36px;
 }
@@ -51,6 +53,7 @@
 
 .frame__stats--opponent {
   border-left: 6px solid black;
+  border-bottom: 6px solid black;
   border-bottom-left-radius: 5px;
 }
 
@@ -59,6 +62,11 @@
   justify-content: center;
   align-items: flex-end;
   width: 50%;
+}
+
+.frame__sprite--player {
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .frame__box--opponent {
