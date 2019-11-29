@@ -1,7 +1,6 @@
 @font-face {
   font-family: Pokemon-Font;
   src: url('../assets/Pokemon-GB.ttf');
-  /* src: url('../assets/pokemon_pixel_font.woff'); */
 }
 
 /* FRAME */
@@ -88,15 +87,28 @@
   width: auto;
 }
 
+/* Battle Menu */
+.frame__battle-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  border: 8px double black;
+  height: 31.3%;
+  width: 95%;
+}
+
 .frame__options {
   display: flex;
   flex-wrap: wrap;
-  max-width: 200px;
+  max-width: 280px;
+  height: 100%;
 }
 
 .frame__button {
-  /* background-color: aqua; */
-  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 140px;
 }
 
 .frame_attack-menu {
