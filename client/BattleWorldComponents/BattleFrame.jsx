@@ -92,7 +92,7 @@ class BattleFrame extends Component {
   getHealthPixels = (currentPkmn) => {
     const { hp, maxHP } = currentPkmn;
     // Normalize health bar to fraction of maxHP.
-    const healthPixels = Math.floor(99 * hp / maxHP);
+    const healthPixels = Math.floor(146 * hp / maxHP);
     return healthPixels;
   }
 
@@ -137,16 +137,16 @@ class BattleFrame extends Component {
           toggleToWorld={toggleToWorld}
         />
         {/* ATTACK TYPES */}
-        <article className="frame_attack-menu">
+        {/* <article className="frame_attack-menu">
           <div>Attacks</div>
           <div onClick={this.handleFightAction}>TACKLE</div>
           <div onClick={this.handleDrainAction}>GROWL</div>
-        </article>
+        </article> */}
         {/* FIGHT INFO */}
-        <article className="frame_fight-info">
+        {/* <article className="frame_fight-info">
           <div>...</div>
           <div>{fightInfo}</div>
-        </article>
+        </article> */}
       </main>
     )
   }

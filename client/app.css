@@ -6,6 +6,7 @@
 
 body {
   height: 100vh;
+  background-color: black;
 }
 
 #root {
@@ -13,5 +14,8 @@ body {
   justify-content: center;
   align-items: center;
   height: 100%;
-  background-color: black;
+  background-image: url('./assets/images/gameboy-color.png');
+  background-size: 1425px auto;
+  background-position: center;
+  background-repeat: no-repeat;
 }

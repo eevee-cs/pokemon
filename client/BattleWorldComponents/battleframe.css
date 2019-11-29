@@ -1,25 +1,69 @@
+@font-face {
+  font-family: Pokemon-Font;
+  src: url('../assets/Pokemon-GB.ttf');
+  /* src: url('../assets/pokemon_pixel_font.woff'); */
+}
+
 /* FRAME */
 .frame {
   display: flex;
   background-color: rgb(249, 224, 248);
   flex-direction: column;
   align-items: center;
+  font-family: Pokemon-Font;
+  font-size: 28px;
+  text-transform: uppercase;
   width: 500px;
   height: 500px;
 }
 
 .frame__box {
   display: flex;
-  background-color: white;
+  padding: 4px 0 0 28px;
+  height: 33.3%;
   width: 100%;
 }
 
 .frame__info {
+  padding-top: 4px;
   width: 50%;
 }
 
+.frame__level {
+  padding-left: 60px;
+}
+
+.frame__level--size {
+  font-size: 16px;
+}
+
+.frame__stats {
+  display: flex;
+  align-items: center;
+  border-bottom: 6px solid black;
+  font-size: 16px;
+  height: 36px;
+}
+
+.frame__health {
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.frame__stats--opponent {
+  border-left: 6px solid black;
+  border-bottom-left-radius: 5px;
+}
+
 .frame__sprite {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
   width: 50%;
+}
+
+.frame__box--opponent {
+  /* height: 40%; */
 }
 
 .frame__box--player {
@@ -27,19 +71,20 @@
 }
 
 .frame__health-bar {
-  border: 1px solid black;
-  width: 100px;
-  height: 10px;
+  border: 2px solid black;
+  border-radius: 5px;
+  width: 150px;
+  height: 12px;
 }
 
 .frame__health-bar-inner {
   background-color: green;
-  width: 99px;
-  height: 9px;
+  width: 146px;
+  height: 8px;
 }
 
 .frame__sprite-img {
-  height: 100px;
+  height: 140px;
   width: auto;
 }
 

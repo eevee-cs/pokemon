@@ -12,8 +12,7 @@ for (let i = 0; i < 160; i++) {
 
 const OverWorld = ({ canvasRef, toggleToBattle }) => (
   <>
-    <h1>OverWorld</h1>
-    <button type="button" onClick={toggleToBattle}>im a button</button>
+    {/* <button type="button" onClick={toggleToBattle}>im a button</button> */}
     <br />
     <Background grassArr={grassArr} />
     <Player grassArr={grassArr} toggleToBattle={() => toggleToBattle()} />
