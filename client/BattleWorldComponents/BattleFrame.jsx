@@ -14,7 +14,7 @@ import onixSprite from '../assets/images/onix-front.png';
 import pidgeotSprite from '../assets/images/pidgeot-front.png';
 import snorlaxSprite from '../assets/images/snorlax-front.png';
 import { connect } from 'react-redux';
-import { infoReset, damageOnOpponent, effectOnPlayer, damageOnPlayer, drainOnOpponent } from '../actions/pokemonActions';
+import { itemUse, infoReset, damageOnOpponent, effectOnPlayer, damageOnPlayer, drainOnOpponent } from '../actions/pokemonActions';
 // array to alias images to indexes so they can be referenced in store
 const pokePics = [seadraSprite, pikachuSprite, charizardSprite, gengarSprite, hitmonleeSprite, ivysaurSprite, jigglypuffSprite, mewtwoSprite, onixSprite, pidgeotSprite, snorlaxSprite];
 import BattleFrameCSS from './battleframe.css';
@@ -26,9 +26,23 @@ class BattleFrame extends Component {
 
   handleFightAction = () => {
     const {effectOnPlayer, infoReset, damageOnOpponent, damageOnPlayer, opponent, selfWeakArm, opponentWeakArm } = this.props;
-    //damages opponent, less a status effect that may be the result of an opponent attack
+    //damages opponent, less a status effect that may be the result of an opponent attack.
     damageOnOpponent(25+selfWeakArm);
-    //collect opponent attacks in an array
+    // Then you are hit.
+    this.opponentPunchback();
+  }
+
+  handleDrainAction = () => {
+    const {effectOnPlayer, infoReset, drainOnOpponent, damageOnPlayer, opponent, opponentWeakArm } = this.props;
+    //You send off a drain action to reduce the ability of opponent to attack you.
+    drainOnOpponent(30);
+    // Then you are hit.
+    this.opponentPunchback();
+  }
+
+  opponentPunchback = () => {
+    const {effectOnPlayer, infoReset, damageOnPlayer, opponent, opponentWeakArm } = this.props;
+    // Collect opponent attacks into an array.
     let setter = Object.entries(opponent.attacks);
     // Select a random attack.
     let move = setter[Math.floor(Math.random()*setter.length)];
@@ -51,26 +65,6 @@ class BattleFrame extends Component {
     }, 400);
   }
 
-  handleDrainAction = () => {
-    const {effectOnPlayer, infoReset, drainOnOpponent, damageOnPlayer, opponent, opponentWeakArm } = this.props;
-    //You send off a drain action to reduce the ability of opponent to attack you.
-    drainOnOpponent(30);
-    // The rest of this file is opponent's turn, so as handled in handleFightAction, this can be merged in.
-    let setter = Object.entries(opponent.attacks);
-    let move = setter[Math.floor(Math.random()*setter.length)];
-    let name = move[0];
-    let damage = move[1];
-    console.log(move);
-    setTimeout(() => {
-      if (opponent.hp - 25 > 0) {
-        infoReset(opponent.name+' just used '+name+'!')
-      }
-      if (opponent.hp - 25 > 0 && damage < 0) {
-        effectOnPlayer(damage);
-      } else if (opponent.hp - 25 > 0) {damageOnPlayer(2 > damage-opponentWeakArm ? 2 : damage-opponentWeakArm)}
-    }, 400);
-  }
-
   checkOpponentHealth = (damage, id) => {
     const { opponent, toggleToWorld } = this.props;
     // You get a log if you have defeated an opponent.
@@ -85,7 +79,7 @@ class BattleFrame extends Component {
     const { player } = this.props;
     // You get a log if you have lost to an opponent.
     if (player.hp - damage <= 0) {
-      console.log('You Lose');
+      alert('You Lose');
     }
   }
 
@@ -107,20 +101,34 @@ class BattleFrame extends Component {
     }
   }
 
-  handleItem = () => {
+  handleItem = (chosen) => {
     console.log('you touched an item!')
+    const {items, player, itemUse,} = this.props;
+
+    itemUse(chosen)
+
+    // if (chosen.recover >= 1){
+      //console.log('hp',player.hp)
+      // use reducer!
+      // player.hp += 20*chosen.recover
+      // console.log('hp',player.hp)
+      // if (player.hp > player.maxHP){
+      //   player.hp = player.maxHP;
+      // };
+      //chosen.count -= 1;
+    // };
+    this.opponentPunchback();
   }
 
   itemList = () => {
     const {
       items,
     } = this.props;
-    let itemBox = [];
-    let counter = 0;
-    for (let item of items){
+    let itemBox = [], counter = 0;
+    for (let item in items){
     counter++;
-    console.log(item.name);
-    itemBox.push(<div onClick={this.handleItem} key={"l"+counter}>{item.name+' x'+item.count}</div>)
+    if (items[item].count > 0){
+    itemBox.push(<div onClick={() => this.handleItem(items[item])} key={"l"+counter}>{items[item].name+' x'+items[item].count}</div>)}
     };
     return itemBox;
   }
@@ -184,6 +192,7 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, { 
+  itemUse,
   infoReset,
   damageOnOpponent,
   effectOnPlayer,

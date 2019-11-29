@@ -115,18 +115,18 @@ const initialState = {
   opponentWeakArm: 0,
   selfWeakArm: 0,
   fightInfo: 'Getting ready!',
-  items: [
-    {
+  items: {
+    Potion: {
       name: 'Potion',
       count: 1,
       recover: 1,
     },
-    {
+    Pokeball: {
       name: 'Pokeball',
       count: 1,
       recover: -1,
     },
-  ],
+  },
   opponent: {
     maxHP: 80,
     hp: 80,
@@ -215,6 +215,24 @@ const pokemonReducer = (state = initialState, action) => {
         ...state,
         selfWeakArm: newSelfWeakArm,
 
+      };
+    }
+    case constants.ITEM_USE: {
+      const newInnerCount = state.items[action.payload.name].count-1;
+      //dynamic passing
+      const newItem = {
+        ...state.items[action.payload.name],
+        count: newInnerCount,
+      };
+
+      const newItems = {
+        ...state.items,
+        [action.payload.name]: newItem,
+      };
+
+      return {
+        ...state,
+        items: newItems,
       };
     }
     default: {
