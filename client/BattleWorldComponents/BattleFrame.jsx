@@ -178,8 +178,8 @@ class BattleFrame extends Component {
         <div>
         <article className="frame_attack-menu">
           <div>Attacks</div>
-    <div onClick={this.handleFightAction}>{Object.keys(yourPokes[activePoke].attacks)[0]}</div>
-    <div onClick={this.handleDrainAction}>{Object.keys(yourPokes[activePoke].attacks)[1]}</div>
+    <div onClick={this.handleFightAction}>-{Object.keys(yourPokes[activePoke].attacks)[0]}</div>
+    <div onClick={this.handleDrainAction}>-{Object.keys(yourPokes[activePoke].attacks)[1]}</div>
         </article>
         {/* ITEMS */}
         <article className="frame_item-menu">
