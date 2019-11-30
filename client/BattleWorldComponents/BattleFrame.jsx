@@ -140,6 +140,24 @@ class BattleFrame extends Component {
     };
     return itemBox;
   }
+
+  attackList = () => {
+    const {
+      yourPokes, activePoke
+    } = this.props;
+    let attackBox = [], counter = 0;
+    for (let attack in yourPokes[activePoke].attacks){
+      counter++;
+      if (yourPokes[activePoke].attacks[attack] > 0){
+      attackBox.push(<div onClick={this.handleFightAction} key={"a"+counter}>{attack.toUpperCase()}</div>)
+      } else if (yourPokes[activePoke].attacks[attack] < 0){
+        attackBox.push(<div onClick={this.handleDrainAction} key={"a"+counter}>{attack.toUpperCase()}</div>)
+      }
+      
+    };
+    return attackBox;
+
+  }
   
   render() {
     const { 
@@ -178,8 +196,7 @@ class BattleFrame extends Component {
         <div>
         <article className="frame_attack-menu">
           <div>Attacks</div>
-    <div onClick={this.handleFightAction}>-{Object.keys(yourPokes[activePoke].attacks)[0]}</div>
-    <div onClick={this.handleDrainAction}>-{Object.keys(yourPokes[activePoke].attacks)[1]}</div>
+          <div>{this.attackList()}</div>
         </article>
         {/* ITEMS */}
         <article className="frame_item-menu">
