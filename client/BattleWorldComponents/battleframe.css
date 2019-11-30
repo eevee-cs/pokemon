@@ -9,6 +9,7 @@
   background-color: rgb(249, 224, 248);
   flex-direction: column;
   align-items: center;
+  color: rgb(22, 13, 21);
   font-family: Pokemon-Font;
   font-size: 28px;
   text-transform: uppercase;
@@ -52,9 +53,14 @@
 }
 
 .frame__stats--opponent {
-  border-left: 6px solid black;
-  border-bottom: 6px solid black;
+  border-left: 6px solid rgb(22, 13, 21);
+  border-bottom: 6px solid rgb(22, 13, 21);
   border-bottom-left-radius: 5px;
+}
+
+.frame__stats--player {
+  border-right: 6px solid rgb(22, 13, 21);
+  margin-right: 18px;
 }
 
 .frame__sprite {
@@ -78,14 +84,14 @@
 }
 
 .frame__health-bar {
-  border: 2px solid black;
+  border: 2px solid rgb(22, 13, 21);
   border-radius: 5px;
   width: 150px;
   height: 12px;
 }
 
 .frame__health-bar-inner {
-  background-color: green;
+  background-color: rgb(96, 153, 89);
   width: 146px;
   height: 8px;
 }
@@ -95,12 +101,21 @@
   width: auto;
 }
 
+.frame__hp {
+  font-size: 20.5px;
+  border-bottom: 6px solid rgb(22, 13, 21);
+  border-right: 6px solid rgb(22, 13, 21);
+  border-bottom-right-radius: 5px;
+  margin-right: 18px;
+  padding: 0 0 8px 60px;
+}
+
 /* Battle Menu */
 .frame__battle-menu {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  border: 8px double black;
+  border: 8px double rgb(22, 13, 21);
   height: 31.3%;
   width: 95%;
 }
@@ -108,21 +123,27 @@
 .frame__options {
   display: flex;
   flex-wrap: wrap;
-  max-width: 280px;
+  border-left: 8px double rgb(22, 13, 21);
+  max-width: 300px;
   height: 100%;
+  padding-top: 20px;
 }
 
 .frame__button {
   display: flex;
-  justify-content: center;
   align-items: center;
-  width: 140px;
+  width: 50%;
+  padding-left: 10px;
+}
+
+.frame__button--padding {
+  padding-left: 18px;
 }
 
 .frame_attack-menu {
-  outline: 1px solid black;
+  outline: 1px solid rgb(22, 13, 21);
 }
 
 .frame_fight-info {
-  outline: 1px solid black;
+  outline: 1px solid rgb(22, 13, 21);
 }

@@ -41,7 +41,7 @@ const CharacterBox = (props) => {
           </div>
         </section>
         {/* Players HP Display */}
-        { isOpponent ? null : <PlayerHealth /> }
+        { isOpponent ? null : <PlayerHealth hp={pokemon.hp} maxHP={pokemon.maxHP} /> }
       </section>
 
       <section className={isOpponent ? classNames.opponentSprite : classNames.playerSprite}>
