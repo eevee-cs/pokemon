@@ -158,6 +158,21 @@ class BattleFrame extends Component {
     return attackBox;
 
   }
+
+  pokeList = () => {
+    const {
+      yourPokes, activePoke
+    } = this.props;
+    let pokeBox = [], counter = 0;
+    for (let i = 0; i < yourPokes.length; i++){
+      counter++
+      if (i != activePoke){
+        pokeBox.push(<div key={"p"+counter}>{yourPokes[i].name}</div>)
+      }
+    }
+    return pokeBox;
+
+  }
   
   render() {
     const { 
@@ -193,17 +208,22 @@ class BattleFrame extends Component {
           toggleToWorld={toggleToWorld}
         />
         {/* ATTACK TYPES */}
-        <div>
+        <div className="upper_box">
         <article className="frame_attack-menu">
           <div>Attacks</div>
           <div>{this.attackList()}</div>
         </article>
+        {/* CHANGE POKEMON */}
+        <article className="frame_change-menu">
+          <div>Pokemon</div>
+          <div>{this.pokeList()}</div>
+        </article>
+        </div>
         {/* ITEMS */}
         <article className="frame_item-menu">
           <div>Items</div>
           <div>{this.itemList()}</div>
         </article>
-        </div>
         {/* FIGHT INFO */}
         <article className="frame_fight-info">
           <div>...</div>

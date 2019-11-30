@@ -153,6 +153,7 @@ const initialState = {
       attacks: {
         Tackle: 7,
         Growl: -1,
+        //'Body Slam': 14,
       },
       name: 'Eevee',
       image: 11,
