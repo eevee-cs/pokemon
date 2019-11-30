@@ -14,7 +14,7 @@ import onixSprite from '../assets/images/onix-front.png';
 import pidgeotSprite from '../assets/images/pidgeot-front.png';
 import snorlaxSprite from '../assets/images/snorlax-front.png';
 import { connect } from 'react-redux';
-import { itemUse, throwBall, infoReset, damageOnOpponent, effectOnPlayer, damageOnPlayer, drainOnOpponent } from '../actions/pokemonActions';
+import { itemUse, throwBall, infoReset, damageOnOpponent, moreChangePoke,effectOnPlayer, damageOnPlayer, drainOnOpponent } from '../actions/pokemonActions';
 // array to alias images to indexes so they can be referenced in store
 const pokePics = [seadraSprite, pikachuSprite, charizardSprite, gengarSprite, hitmonleeSprite, ivysaurSprite, jigglypuffSprite, mewtwoSprite, onixSprite, pidgeotSprite, snorlaxSprite, eeveeSprite];
 import BattleFrameCSS from './battleframe.css';
@@ -115,16 +115,14 @@ class BattleFrame extends Component {
       toggleToWorld();
     }
 
-    // if (chosen.recover >= 1){
-      //console.log('hp',player.hp)
-      // use reducer!
-      // player.hp += 20*chosen.recover
-      // console.log('hp',player.hp)
-      // if (player.hp > player.maxHP){
-      //   player.hp = player.maxHP;
-      // };
-      //chosen.count -= 1;
-    // };
+    this.opponentPunchback();
+  }
+
+  changePoke = (iden) => {
+    const { yourPokes, activePoke, moreChangePoke } = this.props;
+    console.log('You want to change to ' + yourPokes[iden].name)
+    moreChangePoke(iden);
+
     this.opponentPunchback();
   }
 
@@ -167,7 +165,7 @@ class BattleFrame extends Component {
     for (let i = 0; i < yourPokes.length; i++){
       counter++
       if (i != activePoke){
-        pokeBox.push(<div key={"p"+counter}>{yourPokes[i].name}</div>)
+        pokeBox.push(<div onClick={() => this.changePoke(i)} key={"p"+counter}>{yourPokes[i].name}</div>)
       }
     }
     return pokeBox;
@@ -246,4 +244,5 @@ export default connect(mapStateToProps, {
   effectOnPlayer,
   damageOnPlayer,
   drainOnOpponent,
+  moreChangePoke,
 })(BattleFrame);

@@ -248,6 +248,14 @@ const pokemonReducer = (state = initialState, action) => {
 
       };
     }
+    case constants.CHANGE_POKE: {
+      const newActivePoke = action.payload;
+
+      return {
+        ...state,
+        activePoke: newActivePoke,
+      };
+    }
     case constants.ITEM_USE: {
       const newInnerCount = state.items[action.payload.name].count-1;
       //dynamic passing
