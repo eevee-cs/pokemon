@@ -14,9 +14,9 @@ import onixSprite from '../assets/images/onix-front.png';
 import pidgeotSprite from '../assets/images/pidgeot-front.png';
 import snorlaxSprite from '../assets/images/snorlax-front.png';
 import { connect } from 'react-redux';
-import { infoReset, damageOnOpponent, effectOnPlayer, damageOnPlayer, drainOnOpponent } from '../actions/pokemonActions';
+import { itemUse, throwBall, infoReset, damageOnOpponent, moreChangePoke,effectOnPlayer, damageOnPlayer, drainOnOpponent } from '../actions/pokemonActions';
 // array to alias images to indexes so they can be referenced in store
-const pokePics = [seadraSprite, pikachuSprite, charizardSprite, gengarSprite, hitmonleeSprite, ivysaurSprite, jigglypuffSprite, mewtwoSprite, onixSprite, pidgeotSprite, snorlaxSprite];
+const pokePics = [seadraSprite, pikachuSprite, charizardSprite, gengarSprite, hitmonleeSprite, ivysaurSprite, jigglypuffSprite, mewtwoSprite, onixSprite, pidgeotSprite, snorlaxSprite, eeveeSprite];
 import BattleFrameCSS from './battleframe.css';
 
 class BattleFrame extends Component {
@@ -26,9 +26,25 @@ class BattleFrame extends Component {
 
   handleFightAction = () => {
     const {effectOnPlayer, infoReset, damageOnOpponent, damageOnPlayer, opponent, selfWeakArm, opponentWeakArm } = this.props;
-    //damages opponent, less a status effect that may be the result of an opponent attack
+    //damages opponent, less a status effect that may be the result of an opponent attack.
+
     damageOnOpponent(25+selfWeakArm);
-    //collect opponent attacks in an array
+
+    // Then you are hit.
+    this.opponentPunchback();
+  }
+
+  handleDrainAction = () => {
+    const {effectOnPlayer, infoReset, drainOnOpponent, damageOnPlayer, opponent, opponentWeakArm } = this.props;
+    //You send off a drain action to reduce the ability of opponent to attack you.
+    drainOnOpponent(30);
+    // Then you are hit.
+    this.opponentPunchback();
+  }
+
+  opponentPunchback = () => {
+    const {effectOnPlayer, infoReset, damageOnPlayer, opponent, opponentWeakArm } = this.props;
+    // Collect opponent attacks into an array.
     let setter = Object.entries(opponent.attacks);
     // Select a random attack.
     let move = setter[Math.floor(Math.random()*setter.length)];
@@ -37,7 +53,7 @@ class BattleFrame extends Component {
     // Isolate damage of attack.
     let damage = move[1];
     console.log(move);
-    setTimeout(() => {
+    //setTimeout(() => {
       // Declare name of opponent's attack.
       if (opponent.hp - 25 > 0) {
         infoReset(opponent.name+' just used '+name+'!')
@@ -48,27 +64,7 @@ class BattleFrame extends Component {
       }
       // Opponent attacks for damage, there is also a catch here so the damage cannot be less than 2.
       else if (opponent.hp - 25 > 0) {damageOnPlayer(2 > damage-opponentWeakArm ? 2 : damage-opponentWeakArm)}
-    }, 400);
-  }
-
-  handleDrainAction = () => {
-    const {effectOnPlayer, infoReset, drainOnOpponent, damageOnPlayer, opponent, opponentWeakArm } = this.props;
-    //You send off a drain action to reduce the ability of opponent to attack you.
-    drainOnOpponent(30);
-    // The rest of this file is opponent's turn, so as handled in handleFightAction, this can be merged in.
-    let setter = Object.entries(opponent.attacks);
-    let move = setter[Math.floor(Math.random()*setter.length)];
-    let name = move[0];
-    let damage = move[1];
-    console.log(move);
-    setTimeout(() => {
-      if (opponent.hp - 25 > 0) {
-        infoReset(opponent.name+' just used '+name+'!')
-      }
-      if (opponent.hp - 25 > 0 && damage < 0) {
-        effectOnPlayer(damage);
-      } else if (opponent.hp - 25 > 0) {damageOnPlayer(2 > damage-opponentWeakArm ? 2 : damage-opponentWeakArm)}
-    }, 400);
+    //}, 300);
   }
 
   checkOpponentHealth = (damage, id) => {
@@ -82,17 +78,18 @@ class BattleFrame extends Component {
   }
 
   checkPlayerHealth = (damage) => {
-    const { player } = this.props;
+    const { player, yourPokes, activePoke } = this.props;
     // You get a log if you have lost to an opponent.
-    if (player.hp - damage <= 0) {
-      console.log('You Lose');
+    if (yourPokes[activePoke].hp - damage <= 0) {
+      alert('You Lose');
     }
   }
 
   getHealthPixels = (currentPkmn) => {
     const { hp, maxHP } = currentPkmn;
+    console.log("currentPkmn: ", currentPkmn)
     // Normalize health bar to fraction of maxHP.
-    const healthPixels = Math.floor(99 * hp / maxHP);
+    const healthPixels = Math.floor(146 * hp / maxHP);
     return healthPixels;
   }
 
@@ -101,19 +98,90 @@ class BattleFrame extends Component {
       // Helps check if opponent fainted.
       this.checkOpponentHealth(prevProps.opponent.hp - this.props.opponent.hp)
     }
-    if (this.props.player.hp <= 0) {
+    if (this.props.yourPokes[this.props.activePoke].hp <= 0) {
       // Helps check if you fainted.
-      this.checkPlayerHealth(prevProps.player.hp - this.props.player.hp)
+      this.checkPlayerHealth(prevProps.yourPokes[this.props.activePoke].hp - this.props.yourPokes[this.props.activePoke].hp)
     }
   }
 
+  handleItem = (chosen) => {
+    console.log('you touched an item!')
+    const {items, player, itemUse, throwBall, opponent, toggleToWorld} = this.props;
+
+    if (chosen.recover >= 1) itemUse(chosen);
+    if (chosen.recover === -1) {throwBall({chosen, opponent});
+      alert(`You caught a ${opponent.name}!`);
+      toggleToWorld();
+    }
+
+    this.opponentPunchback();
+  }
+
+  changePoke = (iden) => {
+    const { yourPokes, activePoke, moreChangePoke } = this.props;
+    console.log('You want to change to ' + yourPokes[iden].name)
+    moreChangePoke(iden);
+
+    this.opponentPunchback();
+  }
+
+  itemList = () => {
+    const {
+      items,
+    } = this.props;
+    let itemBox = [], counter = 0;
+    for (let item in items){
+    counter++;
+    if (items[item].count > 0){
+    itemBox.push(<div onClick={() => this.handleItem(items[item])} key={"l"+counter}>{items[item].name+' x'+items[item].count}</div>)}
+    };
+    return itemBox;
+  }
+
+  attackList = () => {
+    const {
+      yourPokes, activePoke
+    } = this.props;
+    let attackBox = [], counter = 0;
+    for (let attack in yourPokes[activePoke].attacks){
+      counter++;
+      if (yourPokes[activePoke].attacks[attack] > 0){
+      attackBox.push(<div onClick={this.handleFightAction} key={"a"+counter}>{attack.toUpperCase()}</div>)
+      } else if (yourPokes[activePoke].attacks[attack] < 0){
+        attackBox.push(<div onClick={this.handleDrainAction} key={"a"+counter}>{attack.toUpperCase()}</div>)
+      }
+      
+    };
+    return attackBox;
+
+  }
+
+  pokeList = () => {
+    const {
+      yourPokes, activePoke
+    } = this.props;
+    let pokeBox = [], counter = 0;
+    for (let i = 0; i < yourPokes.length; i++){
+      counter++
+      if (i != activePoke){
+        pokeBox.push(<div onClick={() => this.changePoke(i)} key={"p"+counter}>{yourPokes[i].name}</div>)
+      }
+    }
+    return pokeBox;
+
+  }
+  
   render() {
     const { 
       opponent,
       player,
       toggleToWorld,
-      fightInfo
+      fightInfo,
+      items,
+      yourPokes,
+      activePoke,
     } = this.props;
+
 
     return (
       <main className="frame">
@@ -126,8 +194,8 @@ class BattleFrame extends Component {
         />
         {/* PLAYER FRAME BOX */}
         <CharacterBox
-          pokemon={player}
-          sprite={eeveeSprite}
+          pokemon={yourPokes[activePoke]}
+          sprite={pokePics[yourPokes[activePoke].image]}
           getHealthPixels={this.getHealthPixels}
           isOpponent={false}
         />
@@ -137,16 +205,27 @@ class BattleFrame extends Component {
           toggleToWorld={toggleToWorld}
         />
         {/* ATTACK TYPES */}
+        <div className="upper_box">
         <article className="frame_attack-menu">
           <div>Attacks</div>
-          <div onClick={this.handleFightAction}>TACKLE</div>
-          <div onClick={this.handleDrainAction}>GROWL</div>
+          <div>{this.attackList()}</div>
+        </article>
+        {/* CHANGE POKEMON */}
+        <article className="frame_change-menu">
+          <div>Pokemon</div>
+          <div>{this.pokeList()}</div>
+        </article>
+        </div>
+        {/* ITEMS */}
+        <article className="frame_item-menu">
+          <div>Items</div>
+          <div>{this.itemList()}</div>
         </article>
         {/* FIGHT INFO */}
-        <article className="frame_fight-info">
+        {/* <article className="frame_fight-info">
           <div>...</div>
           <div>{fightInfo}</div>
-        </article>
+        </article> */}
       </main>
     )
   }
@@ -157,9 +236,12 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, { 
+  itemUse,
+  throwBall,
   infoReset,
   damageOnOpponent,
   effectOnPlayer,
   damageOnPlayer,
   drainOnOpponent,
+  moreChangePoke,
 })(BattleFrame);
