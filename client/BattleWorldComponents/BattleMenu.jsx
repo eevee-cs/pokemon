@@ -18,7 +18,7 @@ const BattleMenu = (props) => {
         </div>
         {/* Party Option */}
         <div
-          className="frame__button"
+          className="frame__button frame__button--padding"
           role="button"
           tabIndex={0}
         >
@@ -35,7 +35,7 @@ const BattleMenu = (props) => {
         {/* Run Option */}
         <div
           onClick={toggleToWorld}
-          className="frame__button"
+          className="frame__button frame__button--padding"
           role="button"
           tabIndex={0}
         >

@@ -32,7 +32,6 @@ class BattleWorld extends React.Component {
   render() {
     return (
       <>
-        <h1>Battle World</h1>
         <img ref="image" src={eeveeImg} alt="" style={{ display: 'none' }} />
         <img ref="pikachu" src={pikachuImg} alt="" style={{ display: 'none' }} />
         <button type="button" onClick={() => this.props.toggleToWorld()}>im a button</button>

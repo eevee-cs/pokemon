@@ -89,8 +89,7 @@ class BattleFrame extends Component {
     const { hp, maxHP } = currentPkmn;
     console.log("currentPkmn: ", currentPkmn)
     // Normalize health bar to fraction of maxHP.
-    const healthPixels = Math.floor(99 * hp / maxHP);
-    console.log('const health pixels', healthPixels)
+    const healthPixels = Math.floor(146 * hp / maxHP);
     return healthPixels;
   }
 
@@ -223,10 +222,10 @@ class BattleFrame extends Component {
           <div>{this.itemList()}</div>
         </article>
         {/* FIGHT INFO */}
-        <article className="frame_fight-info">
+        {/* <article className="frame_fight-info">
           <div>...</div>
           <div>{fightInfo}</div>
-        </article>
+        </article> */}
       </main>
     )
   }
