@@ -107,10 +107,13 @@ class BattleFrame extends Component {
 
   handleItem = (chosen) => {
     console.log('you touched an item!')
-    const {items, player, itemUse, throwBall, opponent} = this.props;
+    const {items, player, itemUse, throwBall, opponent, toggleToWorld} = this.props;
 
     if (chosen.recover >= 1) itemUse(chosen);
-    if (chosen.recover === -1) throwBall({chosen, opponent});
+    if (chosen.recover === -1) {throwBall({chosen, opponent});
+      alert(`You caught a ${opponent.name}!`);
+      toggleToWorld();
+    }
 
     // if (chosen.recover >= 1){
       //console.log('hp',player.hp)
@@ -175,8 +178,8 @@ class BattleFrame extends Component {
         <div>
         <article className="frame_attack-menu">
           <div>Attacks</div>
-          <div onClick={this.handleFightAction}>TACKLE</div>
-          <div onClick={this.handleDrainAction}>GROWL</div>
+    <div onClick={this.handleFightAction}>{Object.keys(yourPokes[activePoke].attacks)[0]}</div>
+    <div onClick={this.handleDrainAction}>{Object.keys(yourPokes[activePoke].attacks)[1]}</div>
         </article>
         {/* ITEMS */}
         <article className="frame_item-menu">

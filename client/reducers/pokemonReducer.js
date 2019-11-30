@@ -259,6 +259,10 @@ const pokemonReducer = (state = initialState, action) => {
 
       const newPlayerHP = Math.min(state.yourPokes[state.activePoke].hp + mod, state.yourPokes[state.activePoke].maxHP);
 
+      // console.log('full bump: ' + (state.yourPokes[state.activePoke].hp + mod));
+
+      // console.log('back to max: '+ state.yourPokes[state.activePoke].maxHP);
+
       const newItems = {
         ...state.items,
         [action.payload.name]: newItem,
@@ -269,9 +273,13 @@ const pokemonReducer = (state = initialState, action) => {
         hp: newPlayerHP,
       };
 
+      // console.log('set up the new poke ' + newYourPoke.hp);
+
       const newYourPokes = state.yourPokes;
 
       newYourPokes[state.activePoke] = newYourPoke;
+
+      //console.log(newYourPokes);
 
       return {
         ...state,
