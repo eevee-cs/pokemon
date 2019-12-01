@@ -6,8 +6,15 @@
 
 import React, { useState, useEffect, useReducer } from 'react';
 import './overworld.css';
-import playerSprite from '../assets/images/player-down.png';
+import playerFront from '../assets/images/player-front.png';
+import playerBack from '../assets/images/player-back.png';
+import playerLefty from '../assets/images/player-left.png';
+import playerRighty from '../assets/images/player-right.png';
+import playerSprites from '../assets/images/player-sprites.png';
 
+const directionArray = [playerLefty, playerBack, playerRighty, playerFront];
+
+// Help store player location while in battleworld.
 let outerA = 11;
 let outerB = 11;
 
@@ -16,8 +23,8 @@ const [leftOffset, setLeftOffset] = useState(0);
 const [topOffset, setTopOffset] = useState(0);
 
 // ***********************************************************************************************
-
-const [[playerTop, playerLeft], dispatchPlayerCoords] = useReducer(playerCoordReducer, [outerA, outerB]);
+let playerAlias = playerFront;
+const [[playerTop, playerLeft, direction], dispatchPlayerCoords] = useReducer(playerCoordReducer, [outerA, outerB, 3]);
 // useReducer fucntion to set coordinates of player (array[x, y])
 function playerCoordReducer(state, action) {
   switch (action.type) {
@@ -25,20 +32,23 @@ function playerCoordReducer(state, action) {
     // the edge of canvas
     case 37: { // left
       outerB = state[1] !== 0 ? state[1] - 1 : 23;
-    return [state[0], state[1] !== 0 ? state[1] - 1 : 23];
+      playerAlias = playerLefty;
+    return [state[0], state[1] !== 0 ? state[1] - 1 : 23, 0];
     }
     case 38: { // up
-      outerA = state[0] !== 0 ? state[0]-1 : 23;
-      console.log(outerA, state[0])
-    return [state[0] !== 0 ? state[0] - 1 : 23, state[1]];
+      outerA = state[0] !== 0 ? state[0] - 1 : 23;
+      playerAlias = playerBack;
+    return [state[0] !== 0 ? state[0] - 1 : 23, state[1], 1];
     }
     case 39: { // right
       outerB = state[1] !== 23 ? state[1] + 1 : 0;
-    return [state[0], state[1] !== 23 ? state[1] + 1 : 0];
+      playerAlias = playerRighty;
+    return [state[0], state[1] !== 23 ? state[1] + 1 : 0, 2];
     }
     case 40: { // down
-      outerA = state[0] !== 0 ? state[0]+1 : 0;
-    return [state[0] !== 23 ? state[0] + 1 : 0, state[1]];
+      outerA = state[0] !== 0 ? state[0] + 1 : 0;
+      playerAlias = playerFront;
+    return [state[0] !== 23 ? state[0] + 1 : 0, state[1], 3];
     }
     default:
       return new Error('error in player coordinate reducer function');
@@ -102,7 +112,7 @@ function playerCoordReducer(state, action) {
   // render player with class "player", style is to set the CSS positioning inline
   return (
     <img
-    src={playerSprite}
+    src={directionArray[direction]}
     className="player"
       alt="player"
       style={{ left: `${playerLeft * 25 + leftOffset}px`, top: `${playerTop * 25 + topOffset}px` }}
