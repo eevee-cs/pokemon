@@ -8,3 +8,9 @@ export const EFFECT_ATTACK = 'EFFECT ATTACK';
 export const ITEM_USE = 'ITEM USE';
 export const THROW_BALL = 'THROW BALL';
 export const CHANGE_POKE = 'CHANGE POKE';
+
+// Constant Variables
+export const BATTLE_MENU = 'BATTLE';
+export const FIGHT_MENU = 'FIGHT';
+export const ITEM_MENU = 'ITEM';
+export const PKMN_MENU = 'PKMN';

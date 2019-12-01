@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import BattleMenu from './BattleMenu';
+import MenuContainer from './MenuContainer';
 import CharacterBox from './CharacterBox';
+import AttackOption from './AttackOption';
 import pikachuSprite from '../assets/images/pikachu-front.png';
 import seadraSprite from '../assets/images/seadra-front.png';
 import eeveeSprite from '../assets/images/eevee-sprite.png';
@@ -24,11 +26,11 @@ class BattleFrame extends Component {
     super(props)
   }
 
-  handleFightAction = () => {
+  handleFightAction = (damage) => {
     const {effectOnPlayer, infoReset, damageOnOpponent, damageOnPlayer, opponent, selfWeakArm, opponentWeakArm } = this.props;
     //damages opponent, less a status effect that may be the result of an opponent attack.
 
-    damageOnOpponent(25+selfWeakArm);
+    damageOnOpponent(damage + selfWeakArm);
 
     // Then you are hit.
     this.opponentPunchback();
@@ -138,24 +140,6 @@ class BattleFrame extends Component {
     return itemBox;
   }
 
-  attackList = () => {
-    const {
-      yourPokes, activePoke
-    } = this.props;
-    let attackBox = [], counter = 0;
-    for (let attack in yourPokes[activePoke].attacks){
-      counter++;
-      if (yourPokes[activePoke].attacks[attack] > 0){
-      attackBox.push(<div onClick={this.handleFightAction} key={"a"+counter}>{attack.toUpperCase()}</div>)
-      } else if (yourPokes[activePoke].attacks[attack] < 0){
-        attackBox.push(<div onClick={this.handleDrainAction} key={"a"+counter}>{attack.toUpperCase()}</div>)
-      }
-      
-    };
-    return attackBox;
-
-  }
-
   pokeList = () => {
     const {
       yourPokes, activePoke
@@ -168,7 +152,6 @@ class BattleFrame extends Component {
       }
     }
     return pokeBox;
-
   }
   
   render() {
@@ -200,27 +183,34 @@ class BattleFrame extends Component {
           isOpponent={false}
         />
         {/* BATTLE MENU */}
-        <BattleMenu 
+        <MenuContainer 
+          toggleToWorld={toggleToWorld}
+          handleFightAction={this.handleFightAction}
+          handleDrainAction={this.handleDrainAction}
+        />
+        {/* <BattleMenu 
           handleFightAction={this.handleFightAction}
           toggleToWorld={toggleToWorld}
-        />
+        /> */}
         {/* ATTACK TYPES */}
-        <div className="upper_box">
-        <article className="frame_attack-menu">
-          <div>Attacks</div>
-          <div>{this.attackList()}</div>
-        </article>
+        {/* <div className="upper__box">
+          <article className="frame__attack-menu">
+            <div>Attacks</div>
+            <div>{this.attackList()}</div>
+          </article> */}
         {/* CHANGE POKEMON */}
-        <article className="frame_change-menu">
-          <div>Pokemon</div>
-          <div>{this.pokeList()}</div>
-        </article>
-        </div>
+          {/* <article className="frame__change-menu">
+            <div>Pokemon</div>
+            <div>{this.pokeList()}</div>
+          </article>
+        </div> */}
+        
         {/* ITEMS */}
-        <article className="frame_item-menu">
+        {/* <article className="frame__item-menu">
           <div>Items</div>
           <div>{this.itemList()}</div>
-        </article>
+        </article> */}
+
         {/* FIGHT INFO */}
         {/* <article className="frame_fight-info">
           <div>...</div>
