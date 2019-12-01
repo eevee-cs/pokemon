@@ -168,8 +168,28 @@
     outline: none;
   }
 
-.frame__attack-menu {
-  outline: 1px solid rgb(22, 13, 21);
+/* Log Menu */
+.frame__log-menu {
+  text-transform: none;
+  font-size: 23px;
+  height: 100%;
+  width: 100%;
+}
+
+.frame__log-row {
+  display: flex;
+  flex-direction: column;
+  height: 50%;
+  width: 100%;
+  padding-left: 8px;
+}
+
+.frame__log-row--top {
+  justify-content: flex-end;
+}
+
+.frame__log-row--bottom {
+  justify-content: center;
 }
 
 .frame__fight-info {

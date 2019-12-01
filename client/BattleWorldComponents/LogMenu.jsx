@@ -9,11 +9,16 @@ const LogMenu = (props) => {
   } = props;
 
   return (
-    <section 
+    <section
       className="frame__log-menu"
       onClick={handleOpponentAttack}
     >
-      {fightInfo}
+      <div className="frame__log-row frame__log-row--top">
+        {fightInfo[0]}
+      </div>
+      <div className="frame__log-row frame__log-row--bottom">
+        {`used ${fightInfo[1]}!`}
+      </div>
     </section>
   );
 };

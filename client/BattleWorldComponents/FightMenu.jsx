@@ -18,7 +18,8 @@ const FightMenu = (props) => {
     if (activePokemonAttackList[attack] > 0) handleFightAction(damage);
     else if (activePokemonAttackList[attack] < 0) handleDrainAction(damage);
     // render LogMenu with current attack info from your Pokemon
-    infoReset(`${yourPokes[activePoke].name} used ${attack}!`);
+    infoReset([yourPokes[activePoke].name.toUpperCase(), attack.toUpperCase()]);
+    // infoReset(`${yourPokes[activePoke].name.toUpperCase()} used ${attack.toUpperCase()}!`);
     switchMenu(LOG_MENU);
   };
 

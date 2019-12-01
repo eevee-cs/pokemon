@@ -4,7 +4,7 @@ import BattleMenu from './BattleMenu';
 import FightMenu from './FightMenu';
 import LogMenu from './LogMenu';
 import { BATTLE_MENU, FIGHT_MENU, ITEM_MENU, PKMN_MENU, LOG_MENU } from '../actions/constants';
-import { infoReset, damageOnPlayer, effectOnPlayer, damageOnOpponent } from '../actions/pokemonActions';
+import { infoReset, damageOnPlayer, effectOnPlayer, damageOnOpponent, drainOnOpponent } from '../actions/pokemonActions';
 
 const mapStateToProps = (state) => {
   return {
@@ -49,7 +49,7 @@ class MenuContainer extends Component {
     // Isolate damage of attack.
     let damage = move[1];
     // Declare name of opponent's attack.
-    if (opponent.hp - 25 > 0) infoReset(opponent.name+' just used '+name+'!');
+    if (opponent.hp - 25 > 0) infoReset([`Enemy ${opponent.name.toUpperCase()}`, name.toUpperCase()]);
     // If opponent is giving a status attack (indicated by damage < 0), send appropriate action.
     if (opponent.hp - 25 > 0 && damage < 0) effectOnPlayer(damage);
     // Opponent attacks for damage, there is also a catch here so the damage cannot be less than 2.
@@ -66,7 +66,7 @@ class MenuContainer extends Component {
     const { 
       toggleToWorld,
       damageOnOpponent,
-      handleDrainAction,
+      drainOnOpponent,
       yourPokes,
       activePoke,
       fightInfo,
@@ -75,7 +75,9 @@ class MenuContainer extends Component {
 
     return (
       <article className="frame__menu">
+        {/* Default Menu */}
         { menu === BATTLE_MENU ? <BattleMenu switchMenu={this.switchMenu} toggleToWorld={toggleToWorld}/> : null }
+        {/* Fight Menu */}
         { 
           menu === FIGHT_MENU 
           ? 
@@ -85,11 +87,12 @@ class MenuContainer extends Component {
               infoReset={infoReset}
               switchMenu={this.switchMenu}
               handleFightAction={damageOnOpponent}
-              handleDrainAction={handleDrainAction}
+              handleDrainAction={drainOnOpponent}
             /> 
           : 
             null 
         }
+        {/* Log Menu */}
         { menu === LOG_MENU ? <LogMenu fightInfo={fightInfo} handleOpponentAttack={this.handleOpponentAttack}/> : null }
       </article>
     );
@@ -101,4 +104,5 @@ export default connect(mapStateToProps, {
   damageOnPlayer,
   effectOnPlayer,
   damageOnOpponent,
+  drainOnOpponent,
 })(MenuContainer);

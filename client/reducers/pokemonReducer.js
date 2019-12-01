@@ -114,7 +114,7 @@ const initialState = {
   gameWorld: 0,
   opponentWeakArm: 0,
   selfWeakArm: 0,
-  fightInfo: 'Getting ready!',
+  fightInfo: [],
   items: {
     Potion: {
       name: 'Potion',
