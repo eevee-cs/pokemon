@@ -16,7 +16,7 @@ import onixSprite from '../assets/images/onix-front.png';
 import pidgeotSprite from '../assets/images/pidgeot-front.png';
 import snorlaxSprite from '../assets/images/snorlax-front.png';
 import { connect } from 'react-redux';
-import { itemUse, throwBall, infoReset, damageOnOpponent, moreChangePoke,effectOnPlayer, damageOnPlayer, drainOnOpponent } from '../actions/pokemonActions';
+import { itemUse, throwBall, infoReset, moreChangePoke,effectOnPlayer, damageOnPlayer, drainOnOpponent } from '../actions/pokemonActions';
 // array to alias images to indexes so they can be referenced in store
 const pokePics = [seadraSprite, pikachuSprite, charizardSprite, gengarSprite, hitmonleeSprite, ivysaurSprite, jigglypuffSprite, mewtwoSprite, onixSprite, pidgeotSprite, snorlaxSprite, eeveeSprite];
 import BattleFrameCSS from './battleframe.css';
@@ -24,16 +24,6 @@ import BattleFrameCSS from './battleframe.css';
 class BattleFrame extends Component {
   constructor(props) {
     super(props)
-  }
-
-  handleFightAction = (damage) => {
-    const {effectOnPlayer, infoReset, damageOnOpponent, damageOnPlayer, opponent, selfWeakArm, opponentWeakArm } = this.props;
-    //damages opponent, less a status effect that may be the result of an opponent attack.
-
-    damageOnOpponent(damage + selfWeakArm);
-
-    // Then you are hit.
-    this.opponentPunchback();
   }
 
   handleDrainAction = () => {
@@ -188,16 +178,6 @@ class BattleFrame extends Component {
           handleFightAction={this.handleFightAction}
           handleDrainAction={this.handleDrainAction}
         />
-        {/* <BattleMenu 
-          handleFightAction={this.handleFightAction}
-          toggleToWorld={toggleToWorld}
-        /> */}
-        {/* ATTACK TYPES */}
-        {/* <div className="upper__box">
-          <article className="frame__attack-menu">
-            <div>Attacks</div>
-            <div>{this.attackList()}</div>
-          </article> */}
         {/* CHANGE POKEMON */}
           {/* <article className="frame__change-menu">
             <div>Pokemon</div>
@@ -229,7 +209,6 @@ export default connect(mapStateToProps, {
   itemUse,
   throwBall,
   infoReset,
-  damageOnOpponent,
   effectOnPlayer,
   damageOnPlayer,
   drainOnOpponent,

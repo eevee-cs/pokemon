@@ -8,7 +8,7 @@ const AttackOption = (props) => {
   return (
     <div
       className="frame__attack-option"
-      onClick={() => handleAction(damage)}
+      onClick={() => handleAction(attack, damage)}
       role="button"
       tabIndex={0}
     >

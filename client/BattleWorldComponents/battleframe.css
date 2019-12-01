@@ -134,6 +134,7 @@
   align-items: center;
   width: 50%;
   padding-left: 10px;
+  cursor: pointer;
 }
 
 .frame__button--padding {
@@ -147,12 +148,25 @@
   border-left: 8px double rgb(22, 13, 21);
   height: 100%;
   width: 75%;
-  padding-top: 20px;
 }
 
-.upper__box {
+.frame__attack-option {
   display: flex;
+  align-items: flex-end;
+  height: 25%;
+  padding-left: 24px;
+  cursor: pointer;
+  transition: 0.2s;
 }
+  .frame__attack-option:hover {
+    background-color: rgb(227, 199, 239);
+  }
+  .frame__attack-option:active {
+    background-color: rgb(160, 124, 179);
+  }
+  .frame__attack-option:focus {
+    outline: none;
+  }
 
 .frame__attack-menu {
   outline: 1px solid rgb(22, 13, 21);

@@ -14,3 +14,4 @@ export const BATTLE_MENU = 'BATTLE';
 export const FIGHT_MENU = 'FIGHT';
 export const ITEM_MENU = 'ITEM';
 export const PKMN_MENU = 'PKMN';
+export const LOG_MENU = 'LOG';

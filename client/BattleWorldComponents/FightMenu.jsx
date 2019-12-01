@@ -1,22 +1,33 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import AttackOption from './AttackOption';
-
-const mapStateToProps = ({ yourPokes, activePoke }) => ({ yourPokes, activePoke });
+import { LOG_MENU } from '../actions/constants';
 
 const FightMenu = (props) => {
+  const {
+    yourPokes,
+    activePoke,
+    infoReset,
+    switchMenu,
+    handleFightAction,
+    handleDrainAction,
+  } = props;
+  const activePokemonAttackList = yourPokes[activePoke].attacks;
+
+  const handleAction = (attack, damage) => {
+    // deal damage to opponent
+    if (activePokemonAttackList[attack] > 0) handleFightAction(damage);
+    else if (activePokemonAttackList[attack] < 0) handleDrainAction(damage);
+    // render LogMenu with current attack info from your Pokemon
+    infoReset(`${yourPokes[activePoke].name} used ${attack}!`);
+    switchMenu(LOG_MENU);
+  };
+
   const generateAttackList = () => {
-    const {
-      yourPokes,
-      activePoke,
-      handleFightAction,
-      handleDrainAction,
-    } = props;
-    const activePokemonAttackList = yourPokes[activePoke].attacks;
     return Object.keys(activePokemonAttackList).map((attack, i) => (
       <AttackOption
         key={"a" + i}
-        handleAction={activePokemonAttackList[attack] > 0 ? handleFightAction : handleDrainAction}
+        // handleAction={activePokemonAttackList[attack] > 0 ? handleFightAction : handleDrainAction}
+        handleAction={handleAction}
         attack={attack}
         damage={activePokemonAttackList[attack]}
       />
@@ -30,4 +41,4 @@ const FightMenu = (props) => {
   );
 };
 
-export default connect(mapStateToProps)(FightMenu);
+export default FightMenu;
