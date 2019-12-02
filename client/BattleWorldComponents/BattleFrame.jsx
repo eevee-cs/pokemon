@@ -14,7 +14,6 @@ import onixSprite from '../assets/images/onix-front.png';
 import pidgeotSprite from '../assets/images/pidgeot-front.png';
 import snorlaxSprite from '../assets/images/snorlax-front.png';
 import { connect } from 'react-redux';
-import { itemUse, throwBall, infoReset, moreChangePoke } from '../actions/pokemonActions';
 // array to alias images to indexes so they can be referenced in store
 const pokePics = [seadraSprite, pikachuSprite, charizardSprite, gengarSprite, hitmonleeSprite, ivysaurSprite, jigglypuffSprite, mewtwoSprite, onixSprite, pidgeotSprite, snorlaxSprite, eeveeSprite];
 import BattleFrameCSS from './battleframe.css';
@@ -60,62 +59,11 @@ class BattleFrame extends Component {
       this.checkPlayerHealth(prevProps.yourPokes[this.props.activePoke].hp - this.props.yourPokes[this.props.activePoke].hp)
     }
   }
-
-  handleItem = (chosen) => {
-    console.log('you touched an item!')
-    const {items, player, itemUse, throwBall, opponent, toggleToWorld} = this.props;
-
-    if (chosen.recover >= 1) itemUse(chosen);
-    if (chosen.recover === -1) {throwBall({chosen, opponent});
-      alert(`You caught a ${opponent.name}!`);
-      toggleToWorld();
-    }
-
-    this.opponentPunchback();
-  }
-
-  changePoke = (iden) => {
-    const { yourPokes, activePoke, moreChangePoke } = this.props;
-    console.log('You want to change to ' + yourPokes[iden].name)
-    moreChangePoke(iden);
-
-    this.opponentPunchback();
-  }
-
-  itemList = () => {
-    const {
-      items,
-    } = this.props;
-    let itemBox = [], counter = 0;
-    for (let item in items){
-    counter++;
-    if (items[item].count > 0){
-    itemBox.push(<div onClick={() => this.handleItem(items[item])} key={"l"+counter}>{items[item].name+' x'+items[item].count}</div>)}
-    };
-    return itemBox;
-  }
-
-  pokeList = () => {
-    const {
-      yourPokes, activePoke
-    } = this.props;
-    let pokeBox = [], counter = 0;
-    for (let i = 0; i < yourPokes.length; i++){
-      counter++
-      if (i != activePoke){
-        pokeBox.push(<div onClick={() => this.changePoke(i)} key={"p"+counter}>{yourPokes[i].name}</div>)
-      }
-    }
-    return pokeBox;
-  }
   
   render() {
     const { 
       opponent,
-      player,
       toggleToWorld,
-      fightInfo,
-      items,
       yourPokes,
       activePoke,
     } = this.props;
@@ -126,14 +74,14 @@ class BattleFrame extends Component {
         {/* OPPONENT FRAME BOX */}
         <CharacterBox
           pokemon={opponent}
-          sprite={pokePics[opponent.image]}
+          sprite={opponent.image.front}
           getHealthPixels={this.getHealthPixels}
           isOpponent={true}
         />
         {/* PLAYER FRAME BOX */}
         <CharacterBox
           pokemon={yourPokes[activePoke]}
-          sprite={pokePics[yourPokes[activePoke].image]}
+          sprite={yourPokes[activePoke].image.back}
           getHealthPixels={this.getHealthPixels}
           isOpponent={false}
         />
@@ -141,18 +89,6 @@ class BattleFrame extends Component {
         <MenuContainer 
           toggleToWorld={toggleToWorld}
         />
-        {/* CHANGE POKEMON */}
-          {/* <article className="frame__change-menu">
-            <div>Pokemon</div>
-            <div>{this.pokeList()}</div>
-          </article>
-        </div> */}
-        
-        {/* ITEMS */}
-        {/* <article className="frame__item-menu">
-          <div>Items</div>
-          <div>{this.itemList()}</div>
-        </article> */}
       </main>
     )
   }
@@ -162,9 +98,4 @@ const mapStateToProps = (state) => {
   return state;
 };
 
-export default connect(mapStateToProps, { 
-  itemUse,
-  throwBall,
-  infoReset,
-  moreChangePoke,
-})(BattleFrame);
+export default connect(mapStateToProps)(BattleFrame);

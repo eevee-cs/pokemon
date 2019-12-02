@@ -1,116 +1,8 @@
 import * as constants from '../actions/constants';
+import { pkmnList } from '../pokemonList';
 
 const initialState = {
-  pokesArray: [{
-    maxHP: 80,
-    hp: 80,
-    attacks: {
-      'Thunder Shock': 7,
-      'Thunder Wave': -1,
-    },
-    name: 'Pikachu',
-    image: 1,
-  },
-  {
-    maxHP: 120,
-    hp: 120,
-    attacks: {
-      'Hydro Pump': 7,
-      Whirlpool: -1,
-    },
-    name: 'Seadra',
-    image: 0,
-  },
-  {
-    maxHP: 120,
-    hp: 120,
-    attacks: {
-      'Fire Spin': 7,
-      'Fire Blast': -1,
-    },
-    name: 'Charizard',
-    image: 2,
-  },
-  {
-    maxHP: 120,
-    hp: 120,
-    attacks: {
-      'Shadow Ball': 7,
-      Curse: -1,
-    },
-    name: 'Gengar',
-    image: 3,
-  },
-  {
-    maxHP: 120,
-    hp: 120,
-    attacks: {
-      'Hi Jump Kick': 7,
-      Mediate: -1,
-    },
-    name: 'Hitmonlee',
-    image: 4,
-  },
-  {
-    maxHP: 120,
-    hp: 120,
-    attacks: {
-      'Vine Whip': 7,
-      'Razor Leaf': 14,
-    },
-    name: 'Ivysaur',
-    image: 5,
-  },
-  {
-    maxHP: 120,
-    hp: 120,
-    attacks: {
-      Sing: -1,
-      Pound: 7,
-    },
-    name: 'Jigglypuff',
-    image: 6,
-  },
-  {
-    maxHP: 200,
-    hp: 200,
-    attacks: {
-      Psychic: 7,
-      'Double Team': -1,
-    },
-    name: 'Mewtwo',
-    image: 7,
-  },
-  {
-    maxHP: 120,
-    hp: 120,
-    attacks: {
-      'Rock Throw': 7,
-      Harden: -1,
-    },
-    name: 'Onix',
-    image: 8,
-  },
-  {
-    maxHP: 120,
-    hp: 120,
-    attacks: {
-      'Wing Attack': 7,
-      Fly: 14,
-    },
-    name: 'Pidgeot',
-    image: 9,
-  },
-  {
-    maxHP: 120,
-    hp: 120,
-    attacks: {
-      Rest: -1,
-      'Hyper Beam': 7,
-    },
-    name: 'Snorlax',
-    image: 10,
-  }],
+  pokesArray: pkmnList,
   gameWorld: 0,
   opponentWeakArm: 0,
   selfWeakArm: 0,
@@ -127,37 +19,11 @@ const initialState = {
       recover: -1,
     },
   },
-  opponent: {
-    maxHP: 80,
-    hp: 80,
-    attacks: {
-      'Thunder Shock': 7,
-      'Thunder Wave': -1,
-    },
-    name: 'Pikachu',
-  },
-  player: {
-    maxHP: 256,
-    hp: 256,
-    attacks: {
-      Tackle: 7,
-      Growl: -1,
-    },
-    name: 'Eevee',
-  },
+  opponent: pkmnList[1],
+  player: pkmnList[0],
   activePoke: 0,
   yourPokes: [
-    {
-      maxHP: 256,
-      hp: 256,
-      attacks: {
-        Tackle: 7,
-        Growl: -1,
-        //'Body Slam': 14,
-      },
-      name: 'Eevee',
-      image: 11,
-    },
+    pkmnList[0],
   ],
 };
 
