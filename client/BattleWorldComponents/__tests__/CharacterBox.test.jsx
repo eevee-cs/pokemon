@@ -9,20 +9,18 @@ describe('React unit tests', () => {
     const props = {
       pokemon: {
         name: 'Pikachu',
-        hp: 100,
-        maxHP: 150,
       },
       getHealthPixels: () => true,
-      isOpponent: true,
+      isOpponent: false,
     };
 
     beforeAll(() => {
       wrapper = shallow(<CharacterBox {...props} />);
     });
 
-    it('Renders a <article> tag with className "frame__box--opponent"', () => {
+    it('Renders a <article> tag with className "frame__box--player"', () => {
       expect(wrapper.type()).toEqual('article');
-      expect(wrapper.hasClass('frame__box--opponent')).toEqual(true);
+      expect(wrapper.hasClass('frame__box--player')).toEqual(true);
     });
 
     it('Should also render two <section> tags as children', () => {
@@ -33,7 +31,6 @@ describe('React unit tests', () => {
 
     it('First <section> tag should have a className "frame__info"', () => {
       expect(wrapper.childAt(0).hasClass('frame__info')).toEqual(true);
-      // expect(wrapper.find('.frame__max-hp').text()).toEqual('200');
     });
 
     it('Should render a pokemon\'s name in a <h5> tag', () => {
