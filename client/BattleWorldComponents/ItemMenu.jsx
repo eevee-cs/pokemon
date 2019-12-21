@@ -16,6 +16,7 @@ const ItemMenu = (props) => {
     if (item.recover >= 1) itemUse(item);
     if (item.recover === -1) {
       throwBall({ chosen: item, opponent });
+      alert(`You caught a ${opponent.name}!`);
       return toggleToWorld();
     }
     handleOpponentAttack();

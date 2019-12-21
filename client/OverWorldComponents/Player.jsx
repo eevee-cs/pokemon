@@ -16,7 +16,6 @@ import playerLefty from '../assets/images/player-left.png';
 import playerLeftyWide from '../assets/images/player-left-wide.png';
 import playerRighty from '../assets/images/player-right.png';
 import playerRightyWide from '../assets/images/player-right-wide.png';
-import playerSprites from '../assets/images/player-sprites.png';
 
 const directionArray = [playerLefty, playerLeftyWide, playerBack, playerBackLeft, playerBack, playerBackRight, playerRighty, playerRightyWide, playerFront, playerFrontLeft, playerFront, playerFrontRight];
 

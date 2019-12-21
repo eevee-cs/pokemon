@@ -7,6 +7,11 @@ describe('React unit tests', () => {
   describe('PlayerHealth Component', () => {
     let wrapper;
     const props = {
+      pokemon: {
+        name: 'Pikachu',
+        hp: 100,
+        maxHP: 150,
+      },
       getHealthPixels: () => true,
       isOpponent: true,
     };
@@ -15,19 +20,25 @@ describe('React unit tests', () => {
       wrapper = shallow(<CharacterBox {...props} />);
     });
 
-    it('Renders a <h5> tag with className "frame__hp"', () => {
-      expect(wrapper.type()).toEqual('h5');
-      expect(wrapper.hasClass('frame__hp')).toEqual(true);
+    it('Renders a <article> tag with className "frame__box--opponent"', () => {
+      expect(wrapper.type()).toEqual('article');
+      expect(wrapper.hasClass('frame__box--opponent')).toEqual(true);
     });
 
-    it('Should also render two <span> tags as children', () => {
+    it('Should also render two <section> tags as children', () => {
       expect(wrapper.children()).toHaveLength(2);
+      expect(wrapper.childAt(0).type()).toEqual('section');
+      expect(wrapper.childAt(1).type()).toEqual('section');
     });
 
-    it('Should display "hp" and "maxHP" props inside <span>', () => {
-      expect(wrapper.find('.frame__current-hp').text()).toEqual('200/');
-      expect(wrapper.find('.frame__max-hp').text()).toEqual('200');
+    it('First <section> tag should have a className "frame__info"', () => {
+      expect(wrapper.childAt(0).hasClass('frame__info')).toEqual(true);
+      // expect(wrapper.find('.frame__max-hp').text()).toEqual('200');
     });
 
+    it('Should render a pokemon\'s name in a <h5> tag', () => {
+      expect(wrapper.find('.frame__name').text()).toEqual('Pikachu');
+      expect(wrapper.find('.frame__name').type()).toEqual('h5');
+    });
   });
 });
